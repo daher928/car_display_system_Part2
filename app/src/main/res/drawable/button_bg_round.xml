@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:exitFadeDuration="@android:integer/config_mediumAnimTime">
+    <item android:state_pressed="true" >
+        <shape android:shape="oval">
+            <stroke android:color="#539596" android:width="1dp" />
+            <solid android:color="#539596"/>
+            <size android:width="150dp" android:height="150dp"/>
+        </shape>
+    </item>
+
+    <item android:state_pressed="false" >
+        <shape android:shape="oval">
+            <stroke android:color="#00000000" android:width="1dp" />
+            <solid android:color="#00000000"/>
+            <size android:width="150dp" android:height="150dp"/>
+        </shape>
+    </item>
+</selector>
+
