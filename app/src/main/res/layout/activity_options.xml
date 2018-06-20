@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AboutHelp"
-    android:background="@drawable/background_image">
+    android:background="@drawable/background_image"
+    tools:context=".Options">
 
     <TextView
         android:id="@+id/AboutHelp_text"
@@ -17,7 +17,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/coda"
         android:padding="2dp"
-        android:text="About &amp; Help"
+        android:text="Options"
         android:textAllCaps="true"
         android:textColor="#AAE5FF"
         android:textSize="36sp"
@@ -45,7 +45,34 @@
         app:layout_constraintVertical_bias="0.982"
         app:srcCompat="@drawable/back_button" />
 
+    <LinearLayout
+        android:layout_width="364dp"
+        android:layout_height="325dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.632">
 
-
+        <Switch
+            android:id="@+id/switch3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/coda"
+            android:showText="true"
+            android:splitTrack="false"
+            android:text="Theme"
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/darker_gray"
+            android:textOff="BLUE"
+            android:textOn="RED"
+            android:textSize="24sp" />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
