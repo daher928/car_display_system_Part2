@@ -42,6 +42,15 @@ public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemS
 
         });
 
+        final ImageButton next_button = findViewById(R.id.next_button);
+        next_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View button) {
+                next_button.animate();
+                startActivity(new Intent(ChooseCond.this, ChooseGrid.class));
+            }
+
+        });
+
         spinners[0] = findViewById(R.id.spinner0);
         spinners[1] = findViewById(R.id.spinner1);
         spinners[2] = findViewById(R.id.spinner2);

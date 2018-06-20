@@ -20,14 +20,8 @@ public class MainMenu extends AppCompatActivity {
 
         liveCond_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
-                //Set the button's appearance
-                //button.setPressed(!button.isPressed());
-                //button.setSelected(!button.isSelected());
                 if (button.isPressed()) {
-
                     startActivity(new Intent(MainMenu.this, ChooseCond.class));
-                } else {
-                    //Handle de-select state change
                 }
 
             }
@@ -35,14 +29,8 @@ public class MainMenu extends AppCompatActivity {
 
         about_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
-                //Set the button's appearance
-                //button.setPressed(!button.isPressed());
-                //button.setSelected(!button.isSelected());
                 if (button.isPressed()) {
-
-                    //TODO setContentView(R.layout.activity_choose_cond);
-                } else {
-                    //Handle de-select state change
+                    startActivity(new Intent(MainMenu.this, AboutHelp.class));
                 }
 
             }
@@ -55,7 +43,7 @@ public class MainMenu extends AppCompatActivity {
                 //button.setSelected(!button.isSelected());
                 if (button.isPressed()) {
 
-                    //TODO setContentView(R.layout.activity_choose_cond);
+                    //TODO startActivity(new Intent(MainMenu.this, ChooseCond.class));
                 } else {
                     //Handle de-select state change
                 }
