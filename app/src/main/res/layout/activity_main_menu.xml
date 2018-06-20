@@ -18,7 +18,7 @@
         android:contentDescription="@string/carbuttons"
         android:cropToPadding="false"
         android:scaleType="centerInside"
-         android:visibility="visible" 
+         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
