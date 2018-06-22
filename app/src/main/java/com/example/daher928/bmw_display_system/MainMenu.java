@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 
 public class MainMenu extends AppCompatActivity {
@@ -15,7 +16,14 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
 
         View v = getWindow().getDecorView();
-        v.setBackground(getResources().getDrawable(R.drawable.background_image, null));
+        ImageView car_buttons = findViewById(R.id.carButtons);
+        if(AppTheme.theme == ThemeColor.BLUE) {
+            v.setBackground(getResources().getDrawable(R.drawable.background_image, null));
+            car_buttons.setImageDrawable(getResources().getDrawable(R.drawable.carbuttons, null));
+        }else{
+            v.setBackground(getResources().getDrawable(R.drawable.red_backround_image, null));
+            car_buttons.setImageDrawable(getResources().getDrawable(R.drawable.red_car_buttons, null));
+        }
 
         Button liveCond_button = findViewById(R.id.liveCond_button);
         Button logStats_button = findViewById(R.id.logStats_button);

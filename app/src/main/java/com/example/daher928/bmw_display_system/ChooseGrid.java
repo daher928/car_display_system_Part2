@@ -19,17 +19,31 @@ public class ChooseGrid extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_grid);
 
-        final ImageButton back_button = findViewById(R.id.back_button);
+        View v = getWindow().getDecorView();
+        ImageButton back_button = findViewById(R.id.back_button);
+        ImageButton next_button = findViewById(R.id.next_button);
+
+        if(AppTheme.theme == ThemeColor.BLUE) {
+            v.setBackground(getResources().getDrawable(R.drawable.background_image, null));
+            back_button.setImageDrawable(getResources().getDrawable(R.drawable.back_button, null));
+            next_button.setImageDrawable(getResources().getDrawable(R.drawable.next_button, null));
+        }else{
+            v.setBackground(getResources().getDrawable(R.drawable.red_backround_image, null));
+            back_button.setImageDrawable(getResources().getDrawable(R.drawable.red_back_button, null));
+            next_button.setImageDrawable(getResources().getDrawable(R.drawable.red_next_button, null));
+        }
+
+
         back_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
-                back_button.animate();
+
                 startActivity(new Intent(ChooseGrid.this, ChooseCond.class));
             }
 
         });
 
         //TODO: NEXT BUTTON
-//        final ImageButton next_button = findViewById(R.id.next_button);
+//
 //        next_button.setOnClickListener(new View.OnClickListener() {
 //            public void onClick(View button) {
 //                next_button.animate();

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class AboutHelp extends AppCompatActivity {
@@ -14,10 +15,18 @@ public class AboutHelp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_help);
 
-        final ImageButton back_button2 = findViewById(R.id.back_button2);
+        View v = getWindow().getDecorView();
+        ImageButton back_button2 = findViewById(R.id.back_button2);
+        if(AppTheme.theme == ThemeColor.BLUE) {
+            v.setBackground(getResources().getDrawable(R.drawable.background_image, null));
+            back_button2.setImageDrawable(getResources().getDrawable(R.drawable.back_button, null));
+        }else{
+            v.setBackground(getResources().getDrawable(R.drawable.red_backround_image, null));
+            back_button2.setImageDrawable(getResources().getDrawable(R.drawable.red_back_button, null));
+        }
+
         back_button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
-                back_button2.animate();
                 startActivity(new Intent(AboutHelp.this, MainMenu.class));
 
             }

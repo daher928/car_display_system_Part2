@@ -5,9 +5,8 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_image"
     tools:context=".ChooseCond">
-
+<!--    android:background="@drawable/background_image"-->
     <TextView
         android:id="@+id/Choose_text"
         android:layout_width="471dp"

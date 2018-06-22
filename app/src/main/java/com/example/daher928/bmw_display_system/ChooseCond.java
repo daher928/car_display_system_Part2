@@ -1,6 +1,7 @@
 package com.example.daher928.bmw_display_system;
 
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,12 +29,26 @@ public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemS
     int last_active_spinner = 0;
     Button[] rmv_buttons = new Button[SPINNERS_COUNT];
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_cond);
 
+        View v = getWindow().getDecorView();
         final ImageButton back_button = findViewById(R.id.back_button);
+        final ImageButton next_button = findViewById(R.id.next_button);
+        if(AppTheme.theme == ThemeColor.BLUE) {
+            v.setBackground(getResources().getDrawable(R.drawable.background_image, null));
+            back_button.setImageDrawable(getResources().getDrawable(R.drawable.back_button, null));
+            next_button.setImageDrawable(getResources().getDrawable(R.drawable.next_button, null));
+        }else{
+            v.setBackground(getResources().getDrawable(R.drawable.red_backround_image, null));
+            back_button.setImageDrawable(getResources().getDrawable(R.drawable.red_back_button, null));
+            next_button.setImageDrawable(getResources().getDrawable(R.drawable.red_next_button, null));
+        }
+
+
         back_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
                 back_button.animate();
@@ -42,7 +57,7 @@ public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemS
 
         });
 
-        final ImageButton next_button = findViewById(R.id.next_button);
+
         next_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
                 next_button.animate();
