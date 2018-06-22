@@ -42,14 +42,11 @@ public class ChooseGrid extends AppCompatActivity {
 
         });
 
-        //TODO: NEXT BUTTON
-//
-//        next_button.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View button) {
-//                next_button.animate();
-//                startActivity(new Intent(ChooseGrid.this, ChooseGrid.class));
-//            }
-//        });
+        next_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View button) {
+                startActivity(new Intent(ChooseGrid.this, LiveConditions.class));
+            }
+        });
 
         list_button = findViewById(R.id.list_button);
         blocks_button = findViewById(R.id.blocks_button);

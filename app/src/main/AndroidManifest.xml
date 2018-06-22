@@ -29,7 +29,8 @@
             android:screenOrientation="landscape" />
         <activity android:name=".ChooseGrid" />
         <activity android:name=".AboutHelp" />
-        <activity android:name=".Options"></activity>
+        <activity android:name=".Options" />
+        <activity android:name=".LiveConditions"></activity>
     </application>
 
 </manifest>

@@ -39,6 +39,7 @@ public class Options extends AppCompatActivity {
             back_button2.setImageDrawable(getResources().getDrawable(R.drawable.back_button, null));
         }
 
+
         theme_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

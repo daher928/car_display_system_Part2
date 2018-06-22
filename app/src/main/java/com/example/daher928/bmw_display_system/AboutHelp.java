@@ -8,6 +8,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.jjoe64.graphview.GraphView;
+
 public class AboutHelp extends AppCompatActivity {
 
     @Override
@@ -32,7 +34,6 @@ public class AboutHelp extends AppCompatActivity {
             }
 
         });
-        
 
     }
 }
