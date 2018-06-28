@@ -16,7 +16,7 @@ public class LiveConditions extends AppCompatActivity {
     LineGraphSeries<DataPoint> series;
     int x=5, y=4;
 
-    @Override
+    @Override 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_conditions);
