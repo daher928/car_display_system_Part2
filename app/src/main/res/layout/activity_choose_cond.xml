@@ -17,7 +17,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/coda"
         android:padding="2dp"
-        android:text="@string/choose_condition"
+        android:text="Choose Sensors"
         android:textAllCaps="true"
         android:textColor="#AAE5FF"
         android:textSize="36sp"

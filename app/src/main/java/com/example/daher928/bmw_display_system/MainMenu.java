@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.io.FileNotFoundException;
+
 
 public class MainMenu extends AppCompatActivity {
 
@@ -36,7 +38,6 @@ public class MainMenu extends AppCompatActivity {
                 if (button.isPressed()) {
                     startActivity(new Intent(MainMenu.this, ChooseCond.class));
                 }
-
             }
         });
 
@@ -74,6 +75,14 @@ public class MainMenu extends AppCompatActivity {
 
             }
         });
+
+//        //read sensors.csv file into list
+//        try {
+//           CSVReader.readCSV("sensors.csv");
+//
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
 

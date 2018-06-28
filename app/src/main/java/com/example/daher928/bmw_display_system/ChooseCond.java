@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -28,7 +29,6 @@ public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemS
     Spinner[] spinners = new Spinner[SPINNERS_COUNT];
     int last_active_spinner = 0;
     Button[] rmv_buttons = new Button[SPINNERS_COUNT];
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,7 @@ public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemS
         back_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
                 back_button.animate();
+
                 startActivity(new Intent(ChooseCond.this, MainMenu.class));
             }
 
@@ -81,28 +82,11 @@ public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemS
         rmv_buttons[2].setVisibility(View.INVISIBLE);
         rmv_buttons[3].setVisibility(View.INVISIBLE);
 
-//        for(int i=1; i<SPINNERS_COUNT; i++){
-//            final int finalI = i;
-//            rmv_buttons[i].setOnClickListener(new View.OnClickListener() {
-//                public void onClick(View button) {
-//                    if (button.isPressed()) {
-//                        spinners[finalI].setVisibility(View.INVISIBLE);
-//                        last_active_spinner--;
-//                        if(last_active_spinner!=0)
-//                            rmv_buttons[last_active_spinner].setVisibility(View.VISIBLE);
-//                        for(int j=1; j<SPINNERS_COUNT; j++){
-//                            if(j!=last_active_spinner)
-//                                rmv_buttons[j].setVisibility(View.INVISIBLE);
-//                        }
-//                        recover_selected(finalI);
-//                    }
-//                }
-//            });
-//        }
-
 
         String[] spinner_items = {"<Select>", "Condition1", "Condition2", "Condition3", "Condition4"};
 
+       // ArrayList<String> spinner_items_list = new ArrayList<>();
+       // Iterator<>
 
         spinner_items_list = new ArrayList<>(Arrays.asList(spinner_items));
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinner_items_list);
@@ -186,4 +170,9 @@ public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemS
         spinner_items_list.add(recovered);
         //spinner_chosen_items[spinner_idx] = "nil";
     }
+
+//    ArrayList<String> getSensorsNames(ArrayList<Sensor> sensors_list){
+//        Iterator<Sensor> iter = sensors_list.iterator();
+//
+//    }
 }
