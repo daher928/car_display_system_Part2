@@ -83,12 +83,9 @@ public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemS
         rmv_buttons[3].setVisibility(View.INVISIBLE);
 
 
-        String[] spinner_items = {"<Select>", "Condition1", "Condition2", "Condition3", "Condition4"};
 
-       // ArrayList<String> spinner_items_list = new ArrayList<>();
-       // Iterator<>
+        spinner_items_list = getSensorsNames();
 
-        spinner_items_list = new ArrayList<>(Arrays.asList(spinner_items));
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinner_items_list);
 
         for (Spinner spinner : spinners) {
@@ -171,8 +168,14 @@ public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemS
         //spinner_chosen_items[spinner_idx] = "nil";
     }
 
-//    ArrayList<String> getSensorsNames(ArrayList<Sensor> sensors_list){
-//        Iterator<Sensor> iter = sensors_list.iterator();
-//
-//    }
+    ArrayList<String> getSensorsNames(){
+        Iterator<Sensor> iterator = AppState.sensors_list.iterator();
+        ArrayList<String> string_list = new ArrayList<>();
+        string_list.add("<Select>");
+        while(iterator.hasNext()){
+            string_list.add(iterator.next().toString());
+        }
+
+        return string_list;
+    }
 }
