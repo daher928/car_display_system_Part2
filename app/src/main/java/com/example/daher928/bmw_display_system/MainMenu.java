@@ -87,8 +87,7 @@ public class MainMenu extends AppCompatActivity {
             }
         });
 
-        //read sensors.csv file into list
-        CSVReader.readSensorsCSV(getResources().openRawResource(R.raw.sensors));
+
 
     }
 

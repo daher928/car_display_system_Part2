@@ -3,8 +3,10 @@ package com.example.daher928.bmw_display_system;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -42,6 +44,18 @@ public class LiveConditions extends AppCompatActivity {
         viewport.setMaxY(10);
         viewport.setScrollable(true);
         viewport.setScrollableY(true); // enables vertical scrolling
+
+
+        GraphView graph2 = (GraphView) findViewById(R.id.graph2);
+        // data
+        graph2.addSeries(series);
+        // customize a little bit viewport
+        Viewport viewport2 = graph2.getViewport();
+        viewport2.setYAxisBoundsManual(true);
+        viewport2.setMinY(0);
+        viewport2.setMaxY(10);
+        viewport2.setScrollable(true);
+        viewport2.setScrollableY(true); // enables vertical scrolling
 
     }
 

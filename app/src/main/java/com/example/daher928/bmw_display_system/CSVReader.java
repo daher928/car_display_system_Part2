@@ -12,6 +12,7 @@ public class CSVReader{
 
 
     public static void readSensorsCSV(InputStream is) {
+        AppState.sensors_list.clear();
         // Reads text from character-input stream, buffering characters for efficient reading
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("UTF-8"))

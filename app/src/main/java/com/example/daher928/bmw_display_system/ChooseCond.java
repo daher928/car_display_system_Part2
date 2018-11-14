@@ -35,6 +35,10 @@ public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_cond);
 
+
+        //read sensors.csv file into list
+        CSVReader.readSensorsCSV(getResources().openRawResource(R.raw.sensors));
+
         View v = getWindow().getDecorView();
         final ImageButton back_button = findViewById(R.id.back_button);
         final ImageButton next_button = findViewById(R.id.next_button);
@@ -83,7 +87,6 @@ public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemS
         rmv_buttons[3].setVisibility(View.INVISIBLE);
 
 
-
         spinner_items_list = getSensorsNames();
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinner_items_list);
@@ -101,7 +104,9 @@ public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemS
         Spinner curr_spinner = (Spinner) parent;
         final int s_idx = curr_spinner.getId() - spinners[0].getId();
 
-        if (parent.getItemAtPosition(pos).toString() != "<Select>") {
+      //  Toast.makeText(this.getApplicationContext(), parent.getItemAtPosition(pos).toString(), Toast.LENGTH_LONG);
+
+         if (parent.getItemAtPosition(pos).toString() != "") {
             if(spinner_chosen_items[s_idx].equals("nil")) { //New Selection
                 if (s_idx != SPINNERS_COUNT - 1) {
                     spinners[s_idx+1].setVisibility(View.VISIBLE);
@@ -111,9 +116,11 @@ public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemS
                 spinner_items_list.remove(parent.getItemAtPosition(pos).toString());
             }else{  //Changed selection
                 String recovered = spinner_chosen_items[s_idx];
-                spinner_items_list.add(recovered);
-                spinner_chosen_items[s_idx] = parent.getItemAtPosition(pos).toString();
-                spinner_items_list.remove(parent.getItemAtPosition(pos).toString());
+
+                    spinner_items_list.add(recovered);
+                    spinner_chosen_items[s_idx] = parent.getItemAtPosition(pos).toString();
+                    spinner_items_list.remove(parent.getItemAtPosition(pos).toString());
+
             }
 
             if(last_active_spinner < s_idx)
@@ -171,7 +178,7 @@ public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemS
     ArrayList<String> getSensorsNames(){
         Iterator<Sensor> iterator = AppState.sensors_list.iterator();
         ArrayList<String> string_list = new ArrayList<>();
-        string_list.add("<Select>");
+    //    string_list.add("<Select>");
         while(iterator.hasNext()){
             string_list.add(iterator.next().toString());
         }
