@@ -23,9 +23,9 @@ import java.util.List;
 public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     final int SPINNERS_COUNT = 4;
-    List<String> spinner_items_list;
-    String[] spinner_chosen_items = {"nil","nil","nil","nil"};
-    ArrayAdapter<String> adapter;
+    List<String>[] spinner_items_list = new List[4];
+    String[] spinner_chosen_items = {null,null,null,null};
+    ArrayAdapter<String>[] adapter = new ArrayAdapter[4];
     Spinner[] spinners = new Spinner[SPINNERS_COUNT];
     int last_active_spinner = 0;
     Button[] rmv_buttons = new Button[SPINNERS_COUNT];
@@ -42,6 +42,7 @@ public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemS
         View v = getWindow().getDecorView();
         final ImageButton back_button = findViewById(R.id.back_button);
         final ImageButton next_button = findViewById(R.id.next_button);
+
         if(AppTheme.theme == ThemeColor.BLUE) {
             v.setBackground(getResources().getDrawable(R.drawable.background_image, null));
             back_button.setImageDrawable(getResources().getDrawable(R.drawable.back_button, null));
@@ -86,40 +87,62 @@ public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemS
         rmv_buttons[2].setVisibility(View.INVISIBLE);
         rmv_buttons[3].setVisibility(View.INVISIBLE);
 
+        spinner_items_list[0] = getSensorsNames();
+        spinner_items_list[1] = getSensorsNames();
+        spinner_items_list[2] = getSensorsNames();
+        spinner_items_list[3] = getSensorsNames();
 
-        spinner_items_list = getSensorsNames();
+        adapter[0] = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinner_items_list[0]);
+        adapter[1] = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinner_items_list[1]);
+        adapter[2] = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinner_items_list[2]);
+        adapter[3] = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinner_items_list[3]);
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinner_items_list);
+        spinners[0].setAdapter(adapter[0]);
+        spinners[1].setAdapter(adapter[1]);
+        spinners[2].setAdapter(adapter[2]);
+        spinners[3].setAdapter(adapter[3]);
 
-        for (Spinner spinner : spinners) {
-            spinner.setAdapter(adapter);
-            spinner.setOnItemSelectedListener(this);
-            if (spinner.getId() != R.id.spinner0)
-                spinner.setVisibility(View.INVISIBLE);
-        }
+        spinners[0].setVisibility(View.VISIBLE);
+        spinners[1].setVisibility(View.INVISIBLE);
+        spinners[2].setVisibility(View.INVISIBLE);
+        spinners[3].setVisibility(View.INVISIBLE);
+
+        spinners[0].setOnItemSelectedListener(this);
+        spinners[1].setOnItemSelectedListener(this);
+        spinners[2].setOnItemSelectedListener(this);
+        spinners[3].setOnItemSelectedListener(this);
     }
+
+
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+        Toast.makeText(this, "ON SELECT", Toast.LENGTH_SHORT).show();
+
         Spinner curr_spinner = (Spinner) parent;
         final int s_idx = curr_spinner.getId() - spinners[0].getId();
 
-      //  Toast.makeText(this.getApplicationContext(), parent.getItemAtPosition(pos).toString(), Toast.LENGTH_LONG);
-
-         if (parent.getItemAtPosition(pos).toString() != "") {
-            if(spinner_chosen_items[s_idx].equals("nil")) { //New Selection
+        if (!parent.getItemAtPosition(pos).toString().equals("<Select>")) {
+            if(spinner_chosen_items[s_idx]==null) { //New Selection
                 if (s_idx != SPINNERS_COUNT - 1) {
                     spinners[s_idx+1].setVisibility(View.VISIBLE);
                     last_active_spinner++;
                 }
-                spinner_chosen_items[s_idx] = parent.getItemAtPosition(pos).toString();
-                spinner_items_list.remove(parent.getItemAtPosition(pos).toString());
+                String removedOption = parent.getItemAtPosition(pos).toString();
+                spinner_chosen_items[s_idx] = removedOption;
+                for(int i=0; i<4; i++) {
+                    spinner_items_list[i].remove(removedOption);
+                }
+                spinner_items_list[s_idx].remove("<Select>");
             }else{  //Changed selection
                 String recovered = spinner_chosen_items[s_idx];
-
-                    spinner_items_list.add(recovered);
-                    spinner_chosen_items[s_idx] = parent.getItemAtPosition(pos).toString();
-                    spinner_items_list.remove(parent.getItemAtPosition(pos).toString());
+                String removedOption = parent.getItemAtPosition(pos).toString();
+                spinner_chosen_items[s_idx] = removedOption;
+                for(int i=0; i<4; i++) {
+                    spinner_items_list[i].add(recovered);
+                    spinner_items_list[i].remove(removedOption);
+                }
 
             }
 
@@ -131,9 +154,12 @@ public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemS
                     if(i!=last_active_spinner)
                         rmv_buttons[i].setVisibility(View.INVISIBLE);
                 }
-
             }
+
+
         }
+
+
 
 //TODO:remove_button action
 //        if(s_idx!=0){
@@ -160,25 +186,23 @@ public class ChooseCond extends AppCompatActivity implements AdapterView.OnItemS
 //        }
 
 
-
-
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
+        Toast.makeText(this, "ON NOTHING", Toast.LENGTH_LONG).show();
     }
 
     void recover_selected(int spinner_idx){
         String recovered = spinner_chosen_items[spinner_idx];
-        spinner_items_list.add(recovered);
+        spinner_items_list[spinner_idx].add(recovered);
         //spinner_chosen_items[spinner_idx] = "nil";
     }
 
     ArrayList<String> getSensorsNames(){
         Iterator<Sensor> iterator = AppState.sensors_list.iterator();
         ArrayList<String> string_list = new ArrayList<>();
-    //    string_list.add("<Select>");
+        string_list.add("<Select>");
         while(iterator.hasNext()){
             string_list.add(iterator.next().toString());
         }
