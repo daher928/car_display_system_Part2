@@ -19,6 +19,7 @@
     <string name="next_text">NEXT</string>
     <string name="choose_text">Choose Grid</string>
     <string name="list_button" />
+    <string name="Select">Select</string>
 
 
 </resources>
