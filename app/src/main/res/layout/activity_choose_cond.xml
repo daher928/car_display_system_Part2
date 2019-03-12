@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChooseCond">
-<!--    android:background="@drawable/background_image"-->
+    <!--    android:background="@drawable/background_image"-->
     <TextView
         android:id="@+id/Choose_text"
         android:layout_width="471dp"
@@ -16,11 +16,12 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/coda"
+        android:textSize="36sp"
         android:padding="2dp"
         android:text="Choose Sensors"
         android:textAllCaps="true"
         android:textColor="#AAE5FF"
-        android:textSize="36sp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.108"
@@ -30,8 +31,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="348dp"
-        android:layout_height="383dp"
+        android:layout_width="658dp"
+        android:layout_height="317dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -39,140 +40,19 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.735">
+        app:layout_constraintVertical_bias="0.443">
 
-        <Spinner
-            android:id="@+id/spinner0"
+        <ListView
+            android:id="@+id/companionsearch_listView1"
             android:layout_width="match_parent"
-            android:layout_height="62dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/spinner_graphic"
-            android:entries="@drawable/spinner_entry_graphic"
-            android:popupBackground="@drawable/spinner_entry_graphic"
-            android:soundEffectsEnabled="false"
-            android:splitMotionEvents="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/spinner_entry_graphic"
+            android:entries="@drawable/spinner_entry_graphic"/>
 
-        <Spinner
-            android:id="@+id/spinner1"
-            android:layout_width="match_parent"
-            android:layout_height="62dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/spinner_graphic"
-            android:entries="@drawable/spinner_entry_graphic"
-            android:popupBackground="@drawable/spinner_entry_graphic"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Spinner
-            android:id="@+id/spinner2"
-            android:layout_width="match_parent"
-            android:layout_height="62dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/spinner_graphic"
-            android:entries="@drawable/spinner_entry_graphic"
-            android:popupBackground="@drawable/spinner_entry_graphic"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Spinner
-            android:id="@+id/spinner3"
-            android:layout_width="match_parent"
-            android:layout_height="62dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/spinner_graphic"
-            android:entries="@drawable/spinner_entry_graphic"
-            android:popupBackground="@drawable/spinner_entry_graphic"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/remove_button2"
-        style="@android:style/Widget.Material.Button.Borderless.Colored"
-        android:layout_width="93dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Remove"
-        android:textAlignment="textStart"
-        android:textAllCaps="false"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.601" />
-
-    <Button
-        android:id="@+id/remove_button1"
-        style="@android:style/Widget.Material.Button.Borderless.Colored"
-        android:layout_width="93dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Remove"
-        android:textAlignment="textStart"
-        android:textAllCaps="false"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.455" />
-
-    <Button
-        android:id="@+id/remove_button3"
-        style="@android:style/Widget.Material.Button.Borderless.Colored"
-        android:layout_width="93dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Remove"
-        android:textAlignment="textStart"
-        android:textAllCaps="false"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.743" />
 
 
     <ImageButton

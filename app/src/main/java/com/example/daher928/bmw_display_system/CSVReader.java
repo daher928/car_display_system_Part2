@@ -20,7 +20,6 @@ public class CSVReader{
 
         // Initialization
         String line = "";
-
         // Initialization
         try {
 
