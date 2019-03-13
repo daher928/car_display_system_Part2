@@ -32,9 +32,9 @@ import java.util.List;
 import java.util.Random;
 
 public class LiveConditions extends AppCompatActivity {
-    static int port = 9191;
+
     TextView textView;
-    static List<String> received = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,47 +60,46 @@ public class LiveConditions extends AppCompatActivity {
 
         textView = findViewById(R.id.textview);
         textView.setMovementMethod(new ScrollingMovementMethod());
-        Thread myThread = new Thread(new MyServerThread());
-        myThread.start();
+
+        Thread SDThread = new Thread(new StreamDisplayThread());
+        SDThread.start();
+
 
     }
 
-    class MyServerThread implements Runnable {
-        Socket s;
-        ServerSocket ss;
-        InputStreamReader isr;
-        BufferedReader br;
+    class StreamDisplayThread extends Thread implements Runnable {
         Handler h = new Handler();
-
-        String message;
-
         @Override
-        public void run(){
-            try{
-                ss = new ServerSocket(port);
-                while(true) {
-                    s = ss.accept();
-                    isr = new InputStreamReader(s.getInputStream());
-                    br = new BufferedReader(isr);
-                    while((message = br.readLine()) != null){
-                        received.add(message);
-                        Log.i("received:" , message);
-                        h.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                textView.append(message + "\n");
-                            }
-                        });
-                    }
-
+        public void run() {
+            while(true){
+                try {
+                    sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+                while(!AppState.queue.isEmpty()) {
+                    final String s = AppState.queue.poll();
+                    if(s==null)
+                        continue;
+                    String id = s.split("#")[0];
+                    String val = s.split("#")[1];
 
-            }catch(Exception e){
-                e.printStackTrace();
+                    if(!AppState.selectedIds.contains(String.valueOf(Integer.parseInt(id,16))))
+                        continue;
+                    Log.d("StreamDisplayThread polled:" , s);
+                    h.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            textView.append(s +"\n");
+                        }
+                    });
+                }
             }
         }
     }
 }
+
+
 //
 //    private static final Random RANDOM = new Random();
 //    private LineGraphSeries<DataPoint> series;

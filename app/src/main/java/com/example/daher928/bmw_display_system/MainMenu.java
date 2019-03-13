@@ -87,7 +87,8 @@ public class MainMenu extends AppCompatActivity {
             }
         });
 
-
+        Thread myThread = new Thread(new SocketThread());
+        myThread.start();
 
     }
 

@@ -3,6 +3,9 @@ package com.example.daher928.bmw_display_system;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.LinkedTransferQueue;
+import java.util.concurrent.SynchronousQueue;
 
 public class AppState {
 
@@ -15,6 +18,9 @@ public class AppState {
     static final String SLIDES_GRID = "slides_grid";
 
     static String gridSelected = null;
+
+    static List<String> receivedData = new ArrayList<>();
+    static Queue<String> queue = new LinkedTransferQueue<>();
 
     public static String[] getSensorsDiNames() {   //diName = Name [Units] (ID=XXXX)
         Iterator<Sensor> iterator = AppState.sensors_list.iterator();
