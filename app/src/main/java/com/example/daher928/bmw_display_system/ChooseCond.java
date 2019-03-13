@@ -1,47 +1,32 @@
 package com.example.daher928.bmw_display_system;
 
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.AppCompatCheckedTextView;
 import android.util.Log;
-import android.view.ActionMode;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 public class ChooseCond extends AppCompatActivity {
 
-//    final int SPINNERS_COUNT = 4;
-//    List<String>[] spinner_items_list = new List[4];
-//    String[] spinner_chosen_items = {null,null,null,null};
-//    ArrayAdapter<String>[] adapter = new ArrayAdapter[4];
-//    Spinner[] spinners = new Spinner[SPINNERS_COUNT];
-//    int last_active_spinner = 0;
-//    Button[] rmv_buttons = new Button[SPINNERS_COUNT];
+    final static int MAX_ALLOWED_SELECTIONS = 4;
+    static List<Integer> selectedPositionsList = new ArrayList<>();
 
+
+    static ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_cond);
-
 
         //read sensors.csv file into list
         CSVReader.readSensorsCSV(getResources().openRawResource(R.raw.sensors));
@@ -49,6 +34,7 @@ public class ChooseCond extends AppCompatActivity {
         View v = getWindow().getDecorView();
         final ImageButton back_button = findViewById(R.id.back_button);
         final ImageButton next_button = findViewById(R.id.next_button);
+        final Button clearAllButton = findViewById(R.id.clearAllButton);
 
         if (AppTheme.theme == ThemeColor.BLUE) {
             v.setBackground(getResources().getDrawable(R.drawable.background_image, null));
@@ -60,163 +46,75 @@ public class ChooseCond extends AppCompatActivity {
             next_button.setImageDrawable(getResources().getDrawable(R.drawable.red_next_button, null));
         }
 
-
         back_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
                 back_button.animate();
-
                 startActivity(new Intent(ChooseCond.this, MainMenu.class));
             }
 
         });
 
-
         next_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
                 next_button.animate();
-                startActivity(new Intent(ChooseCond.this, ChooseGrid.class));
+                if(selectedPositionsList.size()>0)
+                    startActivity(new Intent(ChooseCond.this, ChooseGrid.class));
+                else
+                    Toast.makeText(getApplicationContext(),"Please Select Conditions", Toast.LENGTH_SHORT).show();
             }
 
         });
 
-        ListView mylist = (ListView) findViewById(R.id.companionsearch_listView1);
-        String[] list = getSensorsNames();
+        clearAllButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for(Integer position : selectedPositionsList){
+                    listView.setItemChecked(position,false);
+                }
+                AppState.selectedDiNamesList.clear();
+                selectedPositionsList.clear();
+                AppState.selectedIds.clear();
+            }
+          });
+
+        listView = findViewById(R.id.companionsearch_listView1);
+        String[] list = AppState.getSensorsDiNames();
         ArrayAdapter adapter = new ArrayAdapter<String>(ChooseCond.this, android.R.layout.simple_list_item_multiple_choice, list);
-        mylist.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        mylist.setAdapter(adapter);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        listView.setAdapter(adapter);
 
-    }
-
-//        spinners[0] = findViewById(R.id.spinner0);
-//
-//
-//        rmv_buttons[0] = null;
-//        rmv_buttons[1] = findViewById(R.id.remove_button1);
-//        rmv_buttons[2] = findViewById(R.id.remove_button2);
-//        rmv_buttons[3] = findViewById(R.id.remove_button3);
-//
-//        rmv_buttons[1].setVisibility(View.INVISIBLE);
-//        rmv_buttons[2].setVisibility(View.INVISIBLE);
-//        rmv_buttons[3].setVisibility(View.INVISIBLE);
-//
-//        spinner_items_list[0] = getSensorsNames();
-//        spinner_items_list[1] = getSensorsNames();
-//        spinner_items_list[2] = getSensorsNames();
-//        spinner_items_list[3] = getSensorsNames();
-//
-//        adapter[0] = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinner_items_list[0]);
-//        adapter[1] = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinner_items_list[1]);
-//        adapter[2] = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinner_items_list[2]);
-//        adapter[3] = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinner_items_list[3]);
-//
-//        spinners[0].setAdapter(adapter[0]);
-//        spinners[1].setAdapter(adapter[1]);
-//        spinners[2].setAdapter(adapter[2]);
-//        spinners[3].setAdapter(adapter[3]);
-//
-//        spinners[0].setVisibility(View.VISIBLE);
-//        spinners[1].setVisibility(View.INVISIBLE);
-//        spinners[2].setVisibility(View.INVISIBLE);
-//        spinners[3].setVisibility(View.INVISIBLE);
-//
-//        spinners[0].setOnItemSelectedListener(this);
-//        spinners[1].setOnItemSelectedListener(this);
-//        spinners[2].setOnItemSelectedListener(this);
-//        spinners[3].setOnItemSelectedListener(this);
-
-
-//    @Override
-//    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-//
-//        Toast.makeText(this, "ON SELECT", Toast.LENGTH_SHORT).show();
-//
-//        Spinner curr_spinner = (Spinner) parent;
-//        final int s_idx = curr_spinner.getId() - spinners[0].getId();
-//
-//        if (!parent.getItemAtPosition(pos).toString().equals("<Select>")) {
-//            if(spinner_chosen_items[s_idx]==null) { //New Selection
-//                if (s_idx != SPINNERS_COUNT - 1) {
-//                    spinners[s_idx+1].setVisibility(View.VISIBLE);
-//                    last_active_spinner++;
-//                }
-//                String removedOption = parent.getItemAtPosition(pos).toString();
-//                spinner_chosen_items[s_idx] = removedOption;
-//                for(int i=0; i<4; i++) {
-//                    spinner_items_list[i].remove(removedOption);
-//                }
-//                spinner_items_list[s_idx].remove("<Select>");
-//            }else{  //Changed selection
-//                String recovered = spinner_chosen_items[s_idx];
-//                String removedOption = parent.getItemAtPosition(pos).toString();
-//                spinner_chosen_items[s_idx] = removedOption;
-//                for(int i=0; i<4; i++) {
-//                    spinner_items_list[i].add(recovered);
-//                    spinner_items_list[i].remove(removedOption);
-//                }
-//
-//            }
-//
-//            if(last_active_spinner < s_idx)
-//                last_active_spinner = s_idx;
-//            if(last_active_spinner >= 1) {
-//                rmv_buttons[last_active_spinner].setVisibility(View.VISIBLE);
-//                for(int i=1; i<SPINNERS_COUNT; i++){
-//                    if(i!=last_active_spinner)
-//                        rmv_buttons[i].setVisibility(View.INVISIBLE);
-//                }
-//            }
-//
-//
-//        }
-//
-//
-//
-//TODO:remove_button action
-//        if(s_idx!=0){
-//            for(int i=1; i<SPINNERS_COUNT; i++){
-//                final int finalI = i;
-//                Log.i("finalI=", Integer.toString(finalI));
-//                rmv_buttons[finalI].setOnClickListener(new View.OnClickListener() {
-//                    public void onClick(View button) {
-//                        if (button.isPressed()) {
-//                            spinners[finalI].setVisibility(View.INVISIBLE);
-//                            last_active_spinner--;
-//                            if(finalI-1!=0)
-//                                rmv_buttons[finalI-1].setVisibility(View.VISIBLE);
-//                            for(int j=1; j<SPINNERS_COUNT; j++){
-//                                if(j!=finalI-1)
-//                                    rmv_buttons[j].setVisibility(View.INVISIBLE);
-//                            }
-//                            recover_selected(s_idx);
-//                        }
-//                    }
-//                });
-//            }
-
-//        }
-
-
-    //    }
-//
-//    @Override
-//    public void onNothingSelected(AdapterView<?> adapterView) {
-//        Toast.makeText(this, "ON NOTHING", Toast.LENGTH_LONG).show();
-//    }
-//
-//    void recover_selected(int spinner_idx){
-//        String recovered = spinner_chosen_items[spinner_idx];
-//        spinner_items_list[spinner_idx].add(recovered);
-//        //spinner_chosen_items[spinner_idx] = "nil";
-//    }
-//
-    String[] getSensorsNames() {
-        Iterator<Sensor> iterator = AppState.sensors_list.iterator();
-        ArrayList<String> string_list = new ArrayList<>();
-
-        while (iterator.hasNext()) {
-            string_list.add(iterator.next().toString());
+        for(Integer position : selectedPositionsList){
+            listView.setItemChecked(position,true);
         }
 
-        return  string_list.toArray(new String[0]);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AppCompatCheckedTextView checkBox = (AppCompatCheckedTextView) view;
+
+                Log.i("SelectedList:", "");
+                if (checkBox.isChecked() == true){
+                    if(AppState.selectedDiNamesList.size()==MAX_ALLOWED_SELECTIONS){ //Limit selections to 4
+                        listView.setItemChecked(i,false);
+                        return;
+                    }
+                    AppState.selectedDiNamesList.add(checkBox.getText().toString());
+                    selectedPositionsList.add(i);
+                    AppState.selectedIds.add(AppState.getSensorIdFromDiName(checkBox.getText().toString()));
+                }else{
+                    AppState.selectedDiNamesList.remove(checkBox.getText().toString());
+                    selectedPositionsList.remove((Object)i);
+                    AppState.selectedIds.remove(AppState.getSensorIdFromDiName(checkBox.getText().toString()));
+                }
+                for(String selected : AppState.selectedDiNamesList) {
+                    Log.i("", selected);
+                }
+                for(String id : AppState.selectedIds) {
+                    Log.i("", id);
+                }
+            }
+        });
     }
+
 }

@@ -1,17 +1,17 @@
 package com.example.daher928.bmw_display_system;
 
 public class Sensor {
-    private int id;
+    private String id;
     private String name; //optional
     private String units;
 
 
     @Override
     public String toString() {
-        return  name + " [" + units + "]" ;
+        return  name + " [" + units + "]" + " (ID=" + id + ")" ;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -23,7 +23,7 @@ public class Sensor {
         this.units = units;
     }
 
-    public int getId(){
+    public String getId(){
 
         return id;
     }

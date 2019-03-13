@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.Comparator;
 
 public class CSVReader{
 
@@ -32,7 +33,7 @@ public class CSVReader{
                 Sensor new_sensor = new Sensor();
 
                 // Setters
-                new_sensor.setId(Integer.parseInt(tokens[0]));
+                new_sensor.setId(String.valueOf(Integer.parseInt(tokens[0],16)));
                 new_sensor.setName(tokens[1]);
                 new_sensor.setUnits(tokens[2]);
 
@@ -42,6 +43,12 @@ public class CSVReader{
                 // Log the object
                 Log.d("My Activity", "Just created: " + new_sensor);
             }
+            AppState.sensors_list.sort(new Comparator<Sensor>() {
+                @Override
+                public int compare(Sensor s1, Sensor s2) {
+                    return s1.getName().compareToIgnoreCase(s2.getName());
+                }
+            });
 
         } catch (IOException e) {
             // Logs error with priority level

@@ -18,7 +18,7 @@ public class ChooseGrid extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_grid);
-
+        AppState.gridSelected = null;
         View v = getWindow().getDecorView();
         ImageButton back_button = findViewById(R.id.back_button);
         ImageButton next_button = findViewById(R.id.next_button);
@@ -44,7 +44,10 @@ public class ChooseGrid extends AppCompatActivity {
 
         next_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
-                startActivity(new Intent(ChooseGrid.this, LiveConditions.class));
+                if(AppState.gridSelected != null)
+                    startActivity(new Intent(ChooseGrid.this, LiveConditions.class));
+                else
+                    Toast.makeText(getApplicationContext(),"Please Select Grid", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -56,10 +59,13 @@ public class ChooseGrid extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(list_button.isChecked()){
+                    AppState.gridSelected = AppState.LIST_GRID;
                     if(blocks_button.isChecked())
                         blocks_button.setChecked(false);
                     if(slides_button.isChecked())
                         slides_button.setChecked(false);
+                }else{
+                    AppState.gridSelected = null;
                 }
             }
         });
@@ -68,10 +74,13 @@ public class ChooseGrid extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(blocks_button.isChecked()){
+                    AppState.gridSelected = AppState.BLOCKS_GRID;
                     if(list_button.isChecked())
                         list_button.setChecked(false);
                     if(slides_button.isChecked())
                         slides_button.setChecked(false);
+                }else{
+                    AppState.gridSelected = null;
                 }
             }
         });
@@ -80,10 +89,13 @@ public class ChooseGrid extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(slides_button.isChecked()){
+                    AppState.gridSelected = AppState.SLIDES_GRID;
                     if(list_button.isChecked())
                         list_button.setChecked(false);
                     if(blocks_button.isChecked())
                         blocks_button.setChecked(false);
+                }else{
+                    AppState.gridSelected = null;
                 }
             }
         });
