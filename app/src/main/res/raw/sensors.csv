@@ -1,23 +1,23 @@
 0001,Raw pressure,Pa
-0002,Slope,0.1deg + 500
+0032,Slope,0.1deg + 500
 0003,Height,cm
 0004,3D Accelerometer,0.25mg
-0005,Real Odometer,m
+0027,Real Odometer,m
 0007,EngineHours,minutes
 0008,Dashboard Odometer,m
 0011,Speed,km/h
 0012,RPM,revolutions/minute
 0013,Pedal/Throttle,0~255
-0014,Fuel Consumption Rate,L/1000km
+0041,Fuel Consumption Rate,L/1000km
 0015,Fuel Consumption Rate,L/1000hour
-0016,Engine Coolant Temperature,deg+offset(40deg)
+0046,Engine Coolant Temperature,deg+offset(40deg)
 0017,Engine Running,boolean
 0018,Engine Calculated Load,%
-0019,Vehicle Weight(CAN),10kg
+003d,Vehicle Weight(CAN),10kg
 001A,Vehicle Weight(MWProc),10kg
 001B,Vehicle Weight Percentage,%
-001C,PTO State,boolean
+003C,PTO State,boolean
 001D,Cruise Control State,boolean
-001E,Break Pedal State,boolean
-0020,Driver ID,No Units
-0021,Gear state,No Units
+0042,Break Pedal State,boolean
+002f,Driver ID,No Units
+0033,Gear state,No Units

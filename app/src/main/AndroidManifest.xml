@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.daher928.bmw_display_system">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,7 +31,8 @@
         <activity android:name=".ChooseGrid" />
         <activity android:name=".AboutHelp" />
         <activity android:name=".Options" />
-        <activity android:name=".LiveConditions"></activity>
+        <activity android:name=".LiveConditions" />
+
     </application>
 
 </manifest>

@@ -15,8 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.LabelFormatter;
 import com.jjoe64.graphview.Viewport;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -24,9 +27,14 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -34,6 +42,10 @@ import java.util.Random;
 public class LiveConditions extends AppCompatActivity {
 
     TextView textView;
+
+    private static final Random RANDOM = new Random();
+    private LineGraphSeries<DataPoint> series;
+    private double lastX = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +77,43 @@ public class LiveConditions extends AppCompatActivity {
         SDThread.start();
 
 
+        // -------------*** Graph demo ***------------------------------------------//
+        GraphView graph = (GraphView) findViewById(R.id.graph);
+        // data
+        series = new LineGraphSeries<DataPoint>();
+        graph.addSeries(series);
+        // customize a little bit viewport
+        Viewport viewport = graph.getViewport();
+        viewport.setYAxisBoundsManual(true);
+        viewport.setMinY(0);
+        viewport.setMaxY(5000);
+        viewport.setScrollable(true);
+        viewport.setScrollableY(true); // enables vertical scrolling
+
+        LinearLayout layout = findViewById(R.id.linearLayoutGraph);
+        float weight = ((float)AppState.selectedIds.size())/(float)4;
+        layout.setWeightSum(weight);
+        // set date label formatter
+        graph.getGridLabelRenderer().setNumVerticalLabels(8);
+        graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+            @Override
+            public String formatLabel(double value, boolean isValueX) {
+                if (isValueX) {
+                    DateFormat simple = new SimpleDateFormat("HH:mm:ss:SSS");
+                    Date result = new Date((long)value);
+                    return simple.format(result);
+                } else {
+                    return super.formatLabel(value, isValueX);
+                }
+            }
+
+        });
+//        graph.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
+        // as we use dates as labels, the human rounding to nice readable numbers
+        // is not necessary
+        graph.getGridLabelRenderer().setHumanRounding(false);
+        // ------------------------------***------------------------------------------//
+
     }
 
     class StreamDisplayThread extends Thread implements Runnable {
@@ -73,7 +122,7 @@ public class LiveConditions extends AppCompatActivity {
         public void run() {
             while(true){
                 try {
-                    sleep(500);
+                    sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -84,12 +133,20 @@ public class LiveConditions extends AppCompatActivity {
                     String id = s.split("#")[0];
                     String val = s.split("#")[1];
 
-                    if(!AppState.selectedIds.contains(String.valueOf(Integer.parseInt(id,16))))
+                    if(!AppState.selectedIds.contains(String.valueOf(id)))
                         continue;
+                    final double double_val = Integer.valueOf(val,16);
                     Log.d("StreamDisplayThread polled:" , s);
                     h.post(new Runnable() {
                         @Override
                         public void run() {
+                            lastX += 0.01;
+                          // Calendar calendar = Calendar.getInstance();
+                            Timestamp ts = new Timestamp(System.currentTimeMillis());
+                            Date d1 = new Date(ts.getTime());
+
+
+                            series.appendData(new DataPoint(d1, double_val), false, 10);
                             textView.append(s +"\n");
                         }
                     });
@@ -97,47 +154,8 @@ public class LiveConditions extends AppCompatActivity {
             }
         }
     }
-}
-
 
 //
-//    private static final Random RANDOM = new Random();
-//    private LineGraphSeries<DataPoint> series;
-//
-//
-//    private double lastX = 0;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_live_conditions);
-//        // we get graph view instance
-//        GraphView graph = (GraphView) findViewById(R.id.graph);
-//        // data
-//        series = new LineGraphSeries<DataPoint>();
-//        graph.addSeries(series);
-//        // customize a little bit viewport
-//        Viewport viewport = graph.getViewport();
-//        viewport.setYAxisBoundsManual(true);
-//        viewport.setMinY(0);
-//        viewport.setMaxY(10);
-//        viewport.setScrollable(true);
-//        viewport.setScrollableY(true); // enables vertical scrolling
-//
-//
-//        GraphView graph2 = (GraphView) findViewById(R.id.graph2);
-//        // data
-//        graph2.addSeries(series);
-//        // customize a little bit viewport
-//        Viewport viewport2 = graph2.getViewport();
-//        viewport2.setYAxisBoundsManual(true);
-//        viewport2.setMinY(0);
-//        viewport2.setMaxY(10);
-//        viewport2.setScrollable(true);
-//        viewport2.setScrollableY(true); // enables vertical scrolling
-//
-//    }
-
 //    @Override
 //    protected void onResume() {
 //        super.onResume();
@@ -172,50 +190,4 @@ public class LiveConditions extends AppCompatActivity {
 //        lastX += 0.01;
 //        series.appendData(new DataPoint(lastX, RANDOM.nextDouble() * 10d), false, 10);
 //    }
-//
-
-
-//
-//    private LineGraphSeries<DataPoint> series;
-//    private int last_x = 0;
-//
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_live_conditions);
-//
-//        //the graph instance
-//        GraphView graph = findViewById(R.id.graph);
-//        //point series for the graph
-//        series = new LineGraphSeries<DataPoint>();
-//        //link the series to the graph
-//        graph.addSeries(series);
-//        //customize viewPort
-//        Viewport viewport = graph.getViewport();
-//        viewport.setXAxisBoundsManual(true);
-//        viewport.setMinY(0);
-//        viewport.setMaxY(10);
-//        viewport.setScrollable(true);
-//    }
-//
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//
-//
-//    }
-//
-//    //adding data to graph
-//    private void addEntry(){
-//        Random rand = new Random();
-//        // we add the point (last_x++, rand) to graph, and display last max 10 points on viewport
-//        series.appendData(new DataPoint(last_x++, rand.nextDouble()), true, 10);
-//    }
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        Toast.makeText(this, "ON RESUME", Toast.LENGTH_LONG);
-//    }
-//}
+}

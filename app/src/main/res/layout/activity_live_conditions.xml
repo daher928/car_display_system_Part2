@@ -17,7 +17,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/coda"
         android:padding="2dp"
-        android:text="Live Conditions"
+        android:text="@string/live_conditions"
         android:textAllCaps="true"
         android:textColor="#AAE5FF"
         android:textSize="36sp"
@@ -49,8 +49,9 @@
     <!-- we add graph view to display -->
 
     <LinearLayout
-        android:layout_width="956dp"
-        android:layout_height="502dp"
+        android:id="@+id/linearLayout2"
+        android:layout_width="216dp"
+        android:layout_height="472dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -59,30 +60,31 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.82"
+        app:layout_constraintHorizontal_bias="0.99"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Choose_text">
+        app:layout_constraintTop_toBottomOf="@+id/Choose_text"
+        app:layout_constraintVertical_bias="0.375">
 
         <!--<com.jjoe64.graphview.GraphView-->
-            <!--android:id="@+id/graph"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_marginBottom="8dp"-->
-            <!--android:layout_marginEnd="8dp"-->
-            <!--android:layout_marginStart="8dp"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--android:layout_weight=".25"-->
-            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="parent" />-->
+        <!--android:id="@+id/graph"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_weight=".25"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
         <TextView
             android:id="@+id/textview"
             android:layout_width="752dp"
             android:layout_height="504dp"
             android:gravity="bottom"
             android:scrollbars="vertical"
-            android:text="RECEIVING!\n"
+            android:text="@string/receiving_n"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -93,4 +95,36 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/linearLayoutGraph"
+        android:layout_width="703dp"
+        android:layout_height="504dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+        app:layout_constraintHorizontal_bias="0.822"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Choose_text"
+        app:layout_constraintVertical_bias="0.0">
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/graph"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight=".25"
+            android:background="@drawable/spinner_entry_graphic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

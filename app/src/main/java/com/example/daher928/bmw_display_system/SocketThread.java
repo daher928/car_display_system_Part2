@@ -38,10 +38,8 @@ class SocketThread extends Thread
 
 
             }
-
         }catch(Exception e){
             Log.i("SocketThread Connection reset:" , "Connection reset");
-            e.printStackTrace();
         }
     }
 }

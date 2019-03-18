@@ -33,7 +33,7 @@ public class CSVReader{
                 Sensor new_sensor = new Sensor();
 
                 // Setters
-                new_sensor.setId(String.valueOf(Integer.parseInt(tokens[0],16)));
+                new_sensor.setId(String.valueOf(tokens[0]));
                 new_sensor.setName(tokens[1]);
                 new_sensor.setUnits(tokens[2]);
 

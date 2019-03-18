@@ -20,6 +20,9 @@
     <string name="choose_text">Choose Grid</string>
     <string name="list_button" />
     <string name="Select">Select</string>
+    <string name="title_activity_realtime_updates">RealtimeUpdates</string>
+    <string name="live_conditions">Live Conditions</string>
+    <string name="receiving_n">RECEIVING!</string>
 
 
 </resources>
