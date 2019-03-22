@@ -23,6 +23,8 @@ import java.util.Scanner;
 
 public class MainMenu extends AppCompatActivity {
 
+    static  Thread myThread = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,8 +89,11 @@ public class MainMenu extends AppCompatActivity {
             }
         });
 
-        Thread myThread = new Thread(new SocketThread());
-        myThread.start();
+        if(myThread==null){
+            myThread = new Thread(new SocketThread());
+            myThread.start();
+        }
+
 
     }
 

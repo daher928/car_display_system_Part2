@@ -4,7 +4,8 @@ public class Sensor {
     private String id;
     private String name; //optional
     private String units;
-
+    private int minVal;
+    private int maxVal;
 
     @Override
     public String toString() {
@@ -36,6 +37,22 @@ public class Sensor {
     public String getUnits(){
 
         return units;
+    }
+
+    public int getMinVal() {
+        return minVal;
+    }
+
+    public void setMinVal(int minVal) {
+        this.minVal = minVal;
+    }
+
+    public int getMaxVal() {
+        return maxVal;
+    }
+
+    public void setMaxVal(int maxVal) {
+        this.maxVal = maxVal;
     }
 
 }

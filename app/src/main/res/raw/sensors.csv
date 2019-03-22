@@ -1,23 +1,37 @@
-0001,Raw pressure,Pa
-0032,Slope,0.1deg + 500
-0003,Height,cm
-0004,3D Accelerometer,0.25mg
-0027,Real Odometer,m
-0007,EngineHours,minutes
-0008,Dashboard Odometer,m
-0011,Speed,km/h
-0012,RPM,revolutions/minute
-0013,Pedal/Throttle,0~255
-0041,Fuel Consumption Rate,L/1000km
-0015,Fuel Consumption Rate,L/1000hour
-0046,Engine Coolant Temperature,deg+offset(40deg)
-0017,Engine Running,boolean
-0018,Engine Calculated Load,%
-003d,Vehicle Weight(CAN),10kg
-001A,Vehicle Weight(MWProc),10kg
-001B,Vehicle Weight Percentage,%
-003C,PTO State,boolean
-001D,Cruise Control State,boolean
-0042,Break Pedal State,boolean
-002f,Driver ID,No Units
-0033,Gear state,No Units
+0001,Raw pressure(After LPF),Pa,0,1048575
+0002,Slope,0.1deg + 500,0,65535
+0003,Height ASL,cm,0,1048575
+0005,Real Odometer,m,0,4294967295
+0007,Engine Hours,minute,0,4294967295
+0008,Dashboard Odometer,m,0,4294967295
+0011,Speed,km/h,0,255
+0012,RPM,revolutions/minute,0,65535
+0013,Pedal/Throttle,0~255,0,255
+0014,Fuel Consumption Rate,L/1000km,0,65535
+0015,Fuel Consumption Rate,L/1000hour,0,65535
+0016,Engine Coolant Temperature,deg+offset(40deg),0,255
+0017,Engine Running,boolean,0,1
+0018,Engine Calculated Load,%,0,125
+0019,Vehicle Weight(CAN),10kg,0,65535
+001A,Vehicle Weight(MWProc),10kg,0,65535
+001B,Vehicle Weight Percentage,%,0,100
+001C,PTO State,boolean,0,1
+001D,Cruise Control State,boolean,0,1
+001E,Break Pedal State,boolean,0,1
+0021,Gear state,0-neutral 251-parking,0,253
+0022,Current retarder torque,No Unit,0,127
+0028,Tank fuel level(CAN),0.4%,0,255
+0029,Raw Pressure(Before LPF),Pa,0,1048575
+002F,Rough weight estimation,1-empty 3-full,0,3
+0030,Low Resolution Fuelometer,mL,0,4294967295
+0032,High Resolution Fuelometer,mL,0,4294967295
+0038,Ambient temperature,0.01Deg °C +4000 offset,0,65535
+003A,Coarse weight estimation,No Unit,0,5
+003D,Actual brake toque,Nm,0,32000
+003F,Tire health,1-worst 10-best,0,10
+0043,Supported OBD-II PIDs,No Unit,256,287
+0044,Torque transfer percentage,0.4%,0,100
+0045,Streering position(CAN),0.002747Deg-90offset,-90,90.024645
+0046,Vehicle CoG speed(CAN),0.01Km/h+100offset,0,350
+0047,Average rain intensity,%,0,100
+0049,Supported OBD-II PIDs,No Unit,287,318

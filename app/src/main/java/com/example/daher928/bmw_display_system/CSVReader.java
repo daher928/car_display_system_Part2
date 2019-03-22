@@ -33,9 +33,11 @@ public class CSVReader{
                 Sensor new_sensor = new Sensor();
 
                 // Setters
-                new_sensor.setId(String.valueOf(tokens[0]));
+                new_sensor.setId(String.valueOf(tokens[0]).toLowerCase());
                 new_sensor.setName(tokens[1]);
                 new_sensor.setUnits(tokens[2]);
+                new_sensor.setMinVal(Integer.parseInt(tokens[3]));
+                new_sensor.setMaxVal(Integer.parseInt(tokens[4]));
 
                 // Adding object to a class
                 AppState.sensors_list.add(new_sensor);
@@ -46,7 +48,7 @@ public class CSVReader{
             AppState.sensors_list.sort(new Comparator<Sensor>() {
                 @Override
                 public int compare(Sensor s1, Sensor s2) {
-                    return s1.getName().compareToIgnoreCase(s2.getName());
+                    return s1.getId().compareToIgnoreCase(s2.getId());
                 }
             });
 

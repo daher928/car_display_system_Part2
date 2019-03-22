@@ -10,6 +10,7 @@ import java.util.concurrent.SynchronousQueue;
 public class AppState {
 
     public static ArrayList<Sensor> sensors_list = new ArrayList<>();
+
     static List<String> selectedDiNamesList = new ArrayList<>();
     static List<String> selectedIds = new ArrayList<>();
 
@@ -44,5 +45,14 @@ public class AppState {
 
     public static String getSensorIdFromDiName(String diName){
         return (diName.split("=")[1]).split("\\)")[0];
+    }
+
+    public static Sensor getSensorFromId(String id){
+
+        for(Sensor s : sensors_list){
+            if(s.getId().equals(id))
+                return s;
+        }
+        return null;
     }
 }

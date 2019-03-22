@@ -58,7 +58,7 @@ public class ChooseCond extends AppCompatActivity {
             public void onClick(View button) {
                 next_button.animate();
                 if(selectedPositionsList.size()>0)
-                    startActivity(new Intent(ChooseCond.this, ChooseGrid.class));
+                    startActivity(new Intent(ChooseCond.this, LiveConditions.class));
                 else
                     Toast.makeText(getApplicationContext(),"Please Select Conditions", Toast.LENGTH_SHORT).show();
             }

@@ -41,11 +41,10 @@ import java.util.Random;
 
 public class LiveConditions extends AppCompatActivity {
 
-    TextView textView;
-
-    private static final Random RANDOM = new Random();
-    private LineGraphSeries<DataPoint> series;
-    private double lastX = 0;
+    static TextView textView;
+    static Thread SDThread = null;
+    static GraphView graph=null;
+    private static LineGraphSeries<DataPoint> series=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,40 +65,48 @@ public class LiveConditions extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
                 back_button.animate();
-                startActivity(new Intent(LiveConditions.this, ChooseGrid.class));
+                startActivity(new Intent(LiveConditions.this, ChooseCond.class));
             }
         });
 
         textView = findViewById(R.id.textview);
         textView.setMovementMethod(new ScrollingMovementMethod());
 
-        Thread SDThread = new Thread(new StreamDisplayThread());
-        SDThread.start();
+        if(SDThread==null){
+            SDThread = new Thread(new StreamDisplayThread());
+            SDThread.start();
+        }
 
 
         // -------------*** Graph demo ***------------------------------------------//
-        GraphView graph = (GraphView) findViewById(R.id.graph);
-        // data
-        series = new LineGraphSeries<DataPoint>();
-        graph.addSeries(series);
-        // customize a little bit viewport
-        Viewport viewport = graph.getViewport();
-        viewport.setYAxisBoundsManual(true);
-        viewport.setMinY(0);
-        viewport.setMaxY(5000);
-        viewport.setScrollable(true);
-        viewport.setScrollableY(true); // enables vertical scrolling
-
+            //Layout weight - depends on # of selected sensors
         LinearLayout layout = findViewById(R.id.linearLayoutGraph);
         float weight = ((float)AppState.selectedIds.size())/(float)4;
         layout.setWeightSum(weight);
+
+        //
+
+        graph = (GraphView) findViewById(R.id.graph);
+        series = new LineGraphSeries<DataPoint>();
+        graph.addSeries(series);
+        Sensor sensor1 = AppState.sensors_list.get(AppState.sensors_list.indexOf(AppState.selectedIds));
+        // customize a little bit viewport
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setMinY(0);
+        graph.getViewport().setMaxY(5000);
+        graph.getViewport().setScrollable(true); // enables horizontal scrolling
+        graph.getViewport().setScrollableY(true); // enables vertical scrolling
+        graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
+        graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
+
         // set date label formatter
-        graph.getGridLabelRenderer().setNumVerticalLabels(8);
+        graph.getGridLabelRenderer().setNumVerticalLabels(10);
+        graph.getGridLabelRenderer().setNumHorizontalLabels(10);
         graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
                 if (isValueX) {
-                    DateFormat simple = new SimpleDateFormat("HH:mm:ss:SSS");
+                    DateFormat simple = new SimpleDateFormat("ss:SSS");
                     Date result = new Date((long)value);
                     return simple.format(result);
                 } else {
@@ -135,18 +142,16 @@ public class LiveConditions extends AppCompatActivity {
 
                     if(!AppState.selectedIds.contains(String.valueOf(id)))
                         continue;
+                    Timestamp ts = new Timestamp(System.currentTimeMillis());
+                    final Date d1 = new Date(ts.getTime());
                     final double double_val = Integer.valueOf(val,16);
                     Log.d("StreamDisplayThread polled:" , s);
                     h.post(new Runnable() {
                         @Override
                         public void run() {
-                            lastX += 0.01;
                           // Calendar calendar = Calendar.getInstance();
-                            Timestamp ts = new Timestamp(System.currentTimeMillis());
-                            Date d1 = new Date(ts.getTime());
 
-
-                            series.appendData(new DataPoint(d1, double_val), false, 10);
+                            series.appendData(new DataPoint(d1, double_val), true, 10,false);
                             textView.append(s +"\n");
                         }
                     });
