@@ -14,6 +14,8 @@ public class AppState {
     static List<String> selectedDiNamesList = new ArrayList<>();
     static List<String> selectedIds = new ArrayList<>();
 
+
+
     static final String LIST_GRID = "list_grid";
     static final String BLOCKS_GRID = "blocks_grid";
     static final String SLIDES_GRID = "slides_grid";

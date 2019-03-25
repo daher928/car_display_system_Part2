@@ -50,7 +50,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="153dp"
+        android:layout_width="142dp"
         android:layout_height="502dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -97,7 +97,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayoutGraph"
-        android:layout_width="885dp"
+        android:layout_width="896dp"
         android:layout_height="504dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -125,15 +125,15 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_weight="0.5"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5">
 
                     <Spinner
                         android:id="@+id/spinner2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/spinner_graphic"
-                        android:layout_weight="0.5" />
+                        android:layout_weight="0.5"
+                        android:background="@drawable/spinner_graphic" />
 
                     <Spinner
                         android:id="@+id/spinner"
@@ -146,22 +146,22 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_weight="0.5"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5">
 
                     <Spinner
                         android:id="@+id/spinner4"
-                        android:layout_weight="0.5"
                         android:layout_width="match_parent"
-                        android:background="@drawable/spinner_graphic"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/spinner_graphic" />
 
                     <Spinner
                         android:id="@+id/spinner3"
-                        android:layout_weight="0.5"
                         android:layout_width="match_parent"
-                        android:background="@drawable/spinner_graphic"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/spinner_graphic" />
                 </TableRow>
 
             </TableLayout>

@@ -4,8 +4,11 @@ public class Sensor {
     private String id;
     private String name; //optional
     private String units;
-    private int minVal;
-    private int maxVal;
+    private double minVal;
+    private double maxVal;
+    private double resolution;
+    private double offset;
+    private SensorConfiguration config;
 
     @Override
     public String toString() {
@@ -39,20 +42,45 @@ public class Sensor {
         return units;
     }
 
-    public int getMinVal() {
+    public double getMinVal() {
         return minVal;
     }
 
-    public void setMinVal(int minVal) {
+    public void setMinVal(double minVal) {
         this.minVal = minVal;
     }
 
-    public int getMaxVal() {
+    public double getMaxVal() {
         return maxVal;
     }
 
-    public void setMaxVal(int maxVal) {
+    public void setMaxVal(double maxVal) {
         this.maxVal = maxVal;
     }
+
+    public double getResolution() {
+        return resolution;
+    }
+
+    public void setResolution(double resolution) {
+        this.resolution = resolution;
+    }
+
+    public double getOffset() {
+        return offset;
+    }
+
+    public void setOffset(double offset) {
+        this.offset = offset;
+    }
+
+    public SensorConfiguration getConfig() {
+        return config;
+    }
+
+    public void setConfig(SensorConfiguration config) {
+        this.config = config;
+    }
+
 
 }

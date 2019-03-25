@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="76dp"
+    tools:context=".ChooseGrid">
+    <!--    android:background="@drawable/background_image"-->
+
+    <TableLayout
+        android:id="@+id/TableLayoutConfig"
+        android:layout_width="999dp"
+        android:layout_height="361dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="0.2"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/next_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choose_configs"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25">
+
+            <TextView
+                android:id="@+id/sensorName1"
+                android:layout_width="206dp"
+                android:layout_height="46dp"
+                android:layout_marginEnd="45dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="0.25"
+                android:text="TextView"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toStartOf="@+id/colorSpinner1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/choose_configs" />
+
+            <Spinner
+                android:id="@+id/colorSpinner1"
+                android:layout_width="233dp"
+                android:layout_height="46dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/spinner_graphic"
+                app:layout_constraintStart_toEndOf="@+id/sensorName1"
+                app:layout_constraintTop_toBottomOf="@+id/choose_configs" />
+
+            <EditText
+                android:id="@+id/maxValInputText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="22dp"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="0.25"
+                android:ems="10"
+                android:hint="Max Value"
+                android:inputType="textPersonName"
+                android:text="Max Value"
+                app:layout_constraintEnd_toStartOf="@+id/resolutionInputText1"
+                app:layout_constraintStart_toEndOf="@+id/colorSpinner1"
+                app:layout_constraintTop_toBottomOf="@+id/choose_configs" />
+
+            <EditText
+                android:id="@+id/resolutionInputText1"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="0.25"
+                android:ems="10"
+                android:hint="Resolution"
+                android:inputType="textPersonName"
+                android:text="Resolution"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.168"
+                app:layout_constraintStart_toEndOf="@+id/maxValInputText"
+                app:layout_constraintTop_toBottomOf="@+id/choose_configs" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25">
+
+            <TextView
+                android:id="@+id/sensorName2"
+                android:layout_width="206dp"
+                android:layout_height="46dp"
+                android:layout_marginEnd="45dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="0.25"
+                android:text="TextView"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toStartOf="@+id/colorSpinner1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/choose_configs" />
+
+            <Spinner
+                android:id="@+id/colorSpinner2"
+                android:layout_width="202dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/spinner_graphic"
+                app:layout_constraintStart_toEndOf="@+id/sensorName1"
+                app:layout_constraintTop_toBottomOf="@+id/choose_configs" />
+
+            <EditText
+                android:id="@+id/maxValInputText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="22dp"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="0.25"
+                android:ems="10"
+                android:hint="Max Value"
+                android:inputType="textPersonName"
+                android:text="Max Value"
+                app:layout_constraintEnd_toStartOf="@+id/resolutionInputText1"
+                app:layout_constraintStart_toEndOf="@+id/colorSpinner1"
+                app:layout_constraintTop_toBottomOf="@+id/choose_configs" />
+
+            <EditText
+                android:id="@+id/resolutionInputText2"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="0.25"
+                android:ems="10"
+                android:hint="Resolution"
+                android:inputType="textPersonName"
+                android:text="Resolution"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.168"
+                app:layout_constraintStart_toEndOf="@+id/maxValInputText"
+                app:layout_constraintTop_toBottomOf="@+id/choose_configs" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25">
+
+            <TextView
+                android:id="@+id/sensorName3"
+                android:layout_width="206dp"
+                android:layout_height="46dp"
+                android:layout_marginEnd="45dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="0.25"
+                android:text="TextView"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toStartOf="@+id/colorSpinner1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/choose_configs" />
+
+            <Spinner
+                android:id="@+id/colorSpinner3"
+                android:layout_width="202dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/spinner_graphic"
+                app:layout_constraintStart_toEndOf="@+id/sensorName1"
+                app:layout_constraintTop_toBottomOf="@+id/choose_configs" />
+
+            <EditText
+                android:id="@+id/maxValInputText3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="22dp"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="0.25"
+                android:ems="10"
+                android:hint="Max Value"
+                android:inputType="textPersonName"
+                android:text="Max Value"
+                app:layout_constraintEnd_toStartOf="@+id/resolutionInputText1"
+                app:layout_constraintStart_toEndOf="@+id/colorSpinner1"
+                app:layout_constraintTop_toBottomOf="@+id/choose_configs" />
+
+            <EditText
+                android:id="@+id/resolutionInputText3"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="0.25"
+                android:ems="10"
+                android:hint="Resolution"
+                android:inputType="textPersonName"
+                android:text="Resolution"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.168"
+                app:layout_constraintStart_toEndOf="@+id/maxValInputText"
+                app:layout_constraintTop_toBottomOf="@+id/choose_configs" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25">
+
+            <TextView
+                android:id="@+id/sensorName4"
+                android:layout_width="206dp"
+                android:layout_height="46dp"
+                android:layout_marginEnd="45dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="0.25"
+                android:text="TextView"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toStartOf="@+id/colorSpinner1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/choose_configs" />
+
+            <Spinner
+                android:id="@+id/colorSpinner4"
+                android:layout_width="202dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/spinner_graphic"
+                app:layout_constraintStart_toEndOf="@+id/sensorName1"
+                app:layout_constraintTop_toBottomOf="@+id/choose_configs" />
+
+            <EditText
+                android:id="@+id/maxValInputText4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="22dp"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="0.25"
+                android:ems="10"
+                android:hint="Max Value"
+                android:inputType="textPersonName"
+                android:text="Max Value"
+                app:layout_constraintEnd_toStartOf="@+id/resolutionInputText1"
+                app:layout_constraintStart_toEndOf="@+id/colorSpinner1"
+                app:layout_constraintTop_toBottomOf="@+id/choose_configs" />
+
+            <EditText
+                android:id="@+id/resolutionInputText4"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="0.25"
+                android:ems="10"
+                android:hint="Resolution"
+                android:inputType="textPersonName"
+                android:text="Resolution"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.168"
+                app:layout_constraintStart_toEndOf="@+id/maxValInputText"
+                app:layout_constraintTop_toBottomOf="@+id/choose_configs" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/choose_configs"
+        android:layout_width="471dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/coda"
+        android:padding="2dp"
+        android:text="@string/choose_configs"
+        android:textAllCaps="true"
+        android:textColor="#AAE5FF"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.077" />
+
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:contentDescription="@string/back_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.008"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.982"
+        app:srcCompat="@drawable/back_button" />
+
+
+    <ImageButton
+        android:id="@+id/next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/next_button" />
+
+    <TextView
+        android:id="@+id/next_text"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/coda"
+        android:padding="2dp"
+        android:selectAllOnFocus="true"
+        android:shadowColor="#aeb3d2"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="1"
+        android:text="NEXT"
+        android:textAllCaps="true"
+        android:textColor="@android:color/background_light"
+        android:textColorHighlight="@android:color/background_light"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/next_button"
+        app:layout_constraintEnd_toEndOf="@+id/next_button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/next_button"
+        app:layout_constraintTop_toTopOf="@+id/next_button"
+        app:layout_constraintVertical_bias="1.0"
+        tools:shadowDx="1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="-191dp" />
+
+</android.support.constraint.ConstraintLayout>
