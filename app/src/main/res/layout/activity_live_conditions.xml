@@ -50,7 +50,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="142dp"
+        android:layout_width="191dp"
         android:layout_height="502dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -60,10 +60,10 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.99"
+        app:layout_constraintHorizontal_bias="0.991"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Choose_text"
-        app:layout_constraintVertical_bias="0.375">
+        app:layout_constraintVertical_bias="0.0">
 
         <!--<com.jjoe64.graphview.GraphView-->
         <!--android:id="@+id/graph"-->
@@ -86,7 +86,7 @@
             android:scrollbars="vertical"
             android:text="@string/receiving_n"
             android:textAlignment="center"
-            android:textSize="24sp"
+            android:textSize="8sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -116,55 +116,6 @@
             android:layout_height="0dp"
             android:layout_weight=".25"
             android:orientation="horizontal">
-
-            <TableLayout
-                android:layout_width="442dp"
-                android:layout_height="104dp"
-                android:layout_weight="0.2"
-                android:orientation="horizontal">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5">
-
-                    <Spinner
-                        android:id="@+id/spinner2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:background="@drawable/spinner_graphic" />
-
-                    <Spinner
-                        android:id="@+id/spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:background="@drawable/spinner_graphic" />
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5">
-
-                    <Spinner
-                        android:id="@+id/spinner4"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:background="@drawable/spinner_graphic" />
-
-                    <Spinner
-                        android:id="@+id/spinner3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:background="@drawable/spinner_graphic" />
-                </TableRow>
-
-            </TableLayout>
 
             <com.jjoe64.graphview.GraphView
                 android:id="@+id/graph"

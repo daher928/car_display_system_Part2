@@ -1,12 +1,14 @@
 package com.example.daher928.bmw_display_system;
 
+import android.graphics.Color;
+
 public class Sensor {
     private String id;
     private String name; //optional
     private String units;
     private double minVal;
-    private double maxVal;
-    private double resolution;
+    private double initMaxVal;
+    private double initResolution;
     private double offset;
     private SensorConfiguration config;
 
@@ -50,20 +52,20 @@ public class Sensor {
         this.minVal = minVal;
     }
 
-    public double getMaxVal() {
-        return maxVal;
+    public double getInitMaxVal() {
+        return initMaxVal;
     }
 
-    public void setMaxVal(double maxVal) {
-        this.maxVal = maxVal;
+    public void setInitMaxVal(double initMaxVal) {
+        this.initMaxVal = initMaxVal;
     }
 
-    public double getResolution() {
-        return resolution;
+    public double getInitResolution() {
+        return initResolution;
     }
 
-    public void setResolution(double resolution) {
-        this.resolution = resolution;
+    public void setInitResolution(double initResolution) {
+        this.initResolution = initResolution;
     }
 
     public double getOffset() {
@@ -80,6 +82,12 @@ public class Sensor {
 
     public void setConfig(SensorConfiguration config) {
         this.config = config;
+    }
+
+    public void resetConfig(){
+        config.setResolution(initResolution);
+        config.setMaxY(initMaxVal);
+        config.setColor(Color.BLUE);
     }
 
 

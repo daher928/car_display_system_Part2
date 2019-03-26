@@ -6,6 +6,11 @@ public class SensorConfiguration {
     private double maxY;
     private double resolution;
 
+    public SensorConfiguration(int color, double maxY, double resolution) {
+        this.color = color;
+        this.maxY = maxY;
+        this.resolution = resolution;
+    }
 
     public int getColor() {
         return color;

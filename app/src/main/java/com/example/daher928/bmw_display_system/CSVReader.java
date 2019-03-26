@@ -1,5 +1,6 @@
 package com.example.daher928.bmw_display_system;
 
+import android.graphics.Color;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -37,14 +38,15 @@ public class CSVReader{
                 new_sensor.setName(tokens[1]);
                 new_sensor.setUnits(tokens[2]);
                 new_sensor.setMinVal(Double.parseDouble(tokens[3]));
-                new_sensor.setMaxVal(Double.parseDouble(tokens[4]));
-                new_sensor.setResolution(Double.parseDouble(tokens[5]));
+                new_sensor.setInitMaxVal(Double.parseDouble(tokens[4]));
+                new_sensor.setInitResolution(Double.parseDouble(tokens[5]));
                 new_sensor.setOffset(Double.parseDouble(tokens[6]));
+                new_sensor.setConfig(new SensorConfiguration(Color.BLUE,Double.parseDouble(tokens[4]),Double.parseDouble(tokens[5])));
                 // Adding object to a class
                 AppState.sensors_list.add(new_sensor);
 
                 // Log the object
-                Log.d("Sensors:", "created: " + new_sensor + " resolution=" + new_sensor.getResolution() + " offset=" + new_sensor.getOffset());
+                Log.d("Sensors:", "created: " + new_sensor + " resolution=" + new_sensor.getInitResolution() + " offset=" + new_sensor.getOffset());
             }
             AppState.sensors_list.sort(new Comparator<Sensor>() {
                 @Override

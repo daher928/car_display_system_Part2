@@ -29,6 +29,7 @@
             android:name=".ChooseCond"
             android:screenOrientation="landscape" />
         <activity android:name=".ChooseGrid" />
+        <activity android:name=".ChooseConfig" />
         <activity android:name=".AboutHelp" />
         <activity android:name=".Options" />
         <activity android:name=".LiveConditions" />
