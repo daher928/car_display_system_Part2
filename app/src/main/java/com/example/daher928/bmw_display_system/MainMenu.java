@@ -76,18 +76,15 @@ public class MainMenu extends AppCompatActivity {
 
         logStats_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
-                //Set the button's appearance
-                //button.setPressed(!button.isPressed());
-                //button.setSelected(!button.isSelected());
                 if (button.isPressed()) {
-
-                    //TODO setContentView(R.layout.activity_choose_cond);
-                } else {
-                    //Handle de-select state change
+                    startActivity(new Intent(MainMenu.this, LogStats.class));
                 }
 
             }
         });
+
+        LogStats.completeLogTextView = findViewById(R.id.completeLogTextView);
+        LogStats.selectedLogTextView = findViewById(R.id.selectedLogTextView);
 
         if(myThread==null){
             myThread = new Thread(new SocketThread());

@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/Choose_text"
-        android:layout_width="471dp"
+        android:layout_width="304dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -18,121 +18,169 @@
         android:fontFamily="@font/coda"
         android:padding="2dp"
         android:text="@string/live_conditions"
+
         android:textAllCaps="true"
         android:textColor="#AAE5FF"
-        android:textSize="36sp"
-
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.014" />
 
     <ImageButton
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@null"
         android:contentDescription="@string/back_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayoutGraph"
+        app:layout_constraintEnd_toStartOf="@+id/Choose_text"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.538"
         app:srcCompat="@drawable/back_button" />
     <!-- we add graph view to display -->
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="191dp"
-        android:layout_height="502dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/spinner_entry_graphic"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.991"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Choose_text"
-        app:layout_constraintVertical_bias="0.0">
-
-        <!--<com.jjoe64.graphview.GraphView-->
-        <!--android:id="@+id/graph"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
+    <!--<LinearLayout-->
+        <!--android:id="@+id/linearLayout2"-->
+        <!--android:layout_width="109dp"-->
+        <!--android:layout_height="0dp"-->
         <!--android:layout_marginBottom="8dp"-->
         <!--android:layout_marginEnd="8dp"-->
         <!--android:layout_marginStart="8dp"-->
         <!--android:layout_marginTop="8dp"-->
-        <!--android:layout_weight=".25"-->
+        <!--android:background="@drawable/spinner_entry_graphic"-->
+        <!--android:orientation="vertical"-->
         <!--app:layout_constraintBottom_toBottomOf="parent"-->
         <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.991"-->
         <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent" />-->
-        <TextView
-            android:id="@+id/textview"
-            android:layout_width="752dp"
-            android:layout_height="504dp"
-            android:gravity="bottom"
-            android:scrollbars="vertical"
-            android:text="@string/receiving_n"
-            android:textAlignment="center"
-            android:textSize="8sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <!--app:layout_constraintTop_toBottomOf="@+id/Choose_text"-->
+        <!--app:layout_constraintVertical_bias="0.0">-->
 
-    </LinearLayout>
+        <!--&lt;!&ndash;<com.jjoe64.graphview.GraphView&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/graph"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginBottom="8dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginEnd="8dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginStart="8dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginTop="8dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_weight=".25"&ndash;&gt;-->
+        <!--&lt;!&ndash;app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;app:layout_constraintTop_toTopOf="parent" />&ndash;&gt;-->
+        <!--<TextView-->
+            <!--android:id="@+id/textview"-->
+            <!--android:layout_width="752dp"-->
+            <!--android:layout_height="504dp"-->
+            <!--android:gravity="bottom"-->
+            <!--android:scrollbars="vertical"-->
+            <!--android:text="@string/receiving_n"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textSize="8sp"-->
+            <!--android:textStyle="bold"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--app:layout_constraintRight_toRightOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--</LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/linearLayoutGraph"
-        android:layout_width="896dp"
-        android:layout_height="504dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Choose_text"
         app:layout_constraintVertical_bias="0.0">
 
-        <LinearLayout
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/graph1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_weight=".25"
-            android:orientation="horizontal">
+            android:background="@drawable/spinner_entry_graphic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.jjoe64.graphview.GraphView
-                android:id="@+id/graph"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_weight="0.2"
-                android:background="@drawable/spinner_entry_graphic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/graph2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight=".25"
+            android:background="@drawable/spinner_entry_graphic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/graph3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight=".25"
+            android:background="@drawable/spinner_entry_graphic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/graph4"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight=".25"
+            android:background="@drawable/spinner_entry_graphic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/log_icon"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayoutGraph"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.542"
+        app:layout_constraintStart_toEndOf="@+id/Choose_text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 </android.support.constraint.ConstraintLayout>

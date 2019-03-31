@@ -18,7 +18,7 @@ import java.util.List;
 
 public class ChooseCond extends AppCompatActivity {
 
-    final static int MAX_ALLOWED_SELECTIONS = 4;
+    final static int MAX_ALLOWED_SELECTIONS = 3;
     static List<Integer> selectedPositionsList = new ArrayList<>();
 
 
