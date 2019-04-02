@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -32,6 +33,8 @@ public class MainMenu extends AppCompatActivity {
 
         View v = getWindow().getDecorView();
         ImageView car_buttons = findViewById(R.id.carButtons);
+
+
         if(AppTheme.theme == ThemeColor.BLUE) {
             v.setBackground(getResources().getDrawable(R.drawable.background_image, null));
             car_buttons.setImageDrawable(getResources().getDrawable(R.drawable.carbuttons, null));
@@ -83,15 +86,11 @@ public class MainMenu extends AppCompatActivity {
             }
         });
 
-        LogStats.completeLogTextView = findViewById(R.id.completeLogTextView);
-        LogStats.selectedLogTextView = findViewById(R.id.selectedLogTextView);
-
         if(myThread==null){
-            myThread = new Thread(new SocketThread());
+
+            myThread = new Thread(new SocketThread(getApplicationContext()));
             myThread.start();
         }
-
-
     }
 
 }

@@ -9,8 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
@@ -46,7 +48,26 @@ public class LiveConditions extends AppCompatActivity {
         } else {
             v.setBackground(getResources().getDrawable(R.drawable.red_backround_image, null));
             back_button.setImageDrawable(getResources().getDrawable(R.drawable.red_back_button, null));
-    }
+        }
+
+        final Switch logSwitch = findViewById(R.id.switch1);
+
+        if (AppState.isLogActive){
+            logSwitch.setChecked(true);
+        }else{
+            logSwitch.setChecked(false);
+        }
+
+        logSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    AppState.isLogActive = true;
+                }else{
+                    AppState.isLogActive = false;
+                }
+            }
+        });
+
 
         back_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
@@ -55,6 +76,8 @@ public class LiveConditions extends AppCompatActivity {
                 running = false;
             }
         });
+
+
 
         //Layout weight - depends on # of selected sensors
         LinearLayout layout = findViewById(R.id.linearLayoutGraph);
@@ -173,7 +196,12 @@ public class LiveConditions extends AppCompatActivity {
 //                                Log.d("s is null - point will be displayed", String.valueOf(last_point));
                                 return;
                             }
-
+//                            if (AppState.isLogActive){
+//                                AppState.completeLogTextView = findViewById(R.id.completeLogTextView);
+//                                AppState.completeLogTextView.append(s + "\n");
+////                                if (isFilteredData)
+////                                    AppState.selectedLogTextView.append(s + "\n");
+//                            }
                             final String id = s.split("#")[0];
                             final String val = s.split("#")[1];
 
@@ -209,7 +237,7 @@ public class LiveConditions extends AppCompatActivity {
                                         break;
                                 }
 
-                                textView.append(id + " " + String.valueOf(final_val) + " " + d1 + "\n");
+//                                textView.append(id + " " + String.valueOf(final_val) + " " + d1 + "\n");
 //                              graph.getViewport().scrollToEnd();
                                 Log.d("New point will be displayed", String.valueOf(final_val));
                             }

@@ -1,5 +1,7 @@
 package com.example.daher928.bmw_display_system;
 
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -14,8 +16,6 @@ public class AppState {
     static List<String> selectedDiNamesList = new ArrayList<>();
     static List<String> selectedIds = new ArrayList<>();
 
-
-
     static final String LIST_GRID = "list_grid";
     static final String BLOCKS_GRID = "blocks_grid";
     static final String SLIDES_GRID = "slides_grid";
@@ -24,6 +24,11 @@ public class AppState {
 
     static List<String> receivedData = new ArrayList<>();
     static Queue<String> queue = new LinkedTransferQueue<>();
+
+    static boolean isLogActive = false;
+
+//    static TextView completeLogTextView;
+//    static TextView selectedLogTextView;
 
     public static String[] getSensorsDiNames() {   //diName = Name [Units] (ID=XXXX)
         Iterator<Sensor> iterator = AppState.sensors_list.iterator();
