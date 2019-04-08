@@ -27,9 +27,6 @@ public class AppState {
 
     static boolean isLogActive = false;
 
-//    static TextView completeLogTextView;
-//    static TextView selectedLogTextView;
-
     public static String[] getSensorsDiNames() {   //diName = Name [Units] (ID=XXXX)
         Iterator<Sensor> iterator = AppState.sensors_list.iterator();
         ArrayList<String> diNamesList = new ArrayList<>();

@@ -9,15 +9,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Timestamp;
 import java.util.Date;
-
-import static android.content.Context.MODE_PRIVATE;
 
 class SocketThread extends Thread
         implements Runnable {
@@ -77,7 +74,6 @@ class SocketThread extends Thread
                     AppState.queue.add(message);
 
                 }
-
 
             }
         }catch(Exception e){
