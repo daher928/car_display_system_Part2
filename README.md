@@ -18,9 +18,9 @@
 <h2>Repository's Content</h2>
 
 <p>
-The current repository contains the Android Application of the Display Unit (Receiver + Functionality\Data processing).
+The current repository contains the Android Application of the Display Unit (Receiver + Functionality\Data processing), and the TCP Transmitter (BMW Transmitter).
 </p>
-<p>The Transmitter can be found in the following repository: https://github.com/daher928/Transmitter
+<p>The Transmitter can also be found separately in the following repository: https://github.com/daher928/Transmitter
 </p>
 
 </html>
