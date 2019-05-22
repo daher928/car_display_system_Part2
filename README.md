@@ -14,4 +14,13 @@
 <p>The BMW Test Car Display Unit project aims is to provide car drivers and testers with a friendly and easy-to-use dashboard application with the ability to graphically display the real-time data received by the car’s sensor, enabling full control over the configurations of the graphically displayed content (e.g. Resolution, Offset, Color...).</p>
 
 </body>
+
+<h2>Repository's Content</h2>
+
+<p>
+The current repository contains the Android Application of the Display Unit (Receiver + Functionality\Data processing).
+</p>
+<p>The Transmitter can be found in the following repository: https://github.com/daher928/Transmitter
+</p>
+
 </html>
