@@ -5,6 +5,8 @@
   
 <h3>Supervisor: Boaz Mizrachi</h3>
 
+<h2>Status: DONE</h2>
+<h2>Grade: 95/100</h2>
 <h2>Abstract</h2>
 
 <p>In order to enhance and improve the driving experience in BMW cars in general and BMW’s Autonomous cars in particular, drivers and car testers must understand and feel not only the condition of the environment and the traffic around, but also the condition of the road, for example: fraction between the vehicle's tires and the road, humidity of the road, temperature and angle.</p>
