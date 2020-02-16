@@ -154,13 +154,15 @@ public class LiveConditions extends AppCompatActivity {
                     h.post(new Runnable() {
                         @Override
                         public void run() {
-                            Timestamp ts = new Timestamp(System.currentTimeMillis());
+                            final String timestampStr = s.split("#")[0];
+                            final long timestampLong = Long.parseLong(timestampStr);
+                            Timestamp ts = new Timestamp(timestampLong);
                             Date d1 = new Date(ts.getTime());
                             if (s == null) {
                                 return;
                             }
-                            final String id = s.split("#")[0];
-                            final String val = s.split("#")[1];
+                            final String id = s.split("#")[1];
+                            final String val = s.split("#")[2];
 
                             if (!AppState.selectedIds.contains(id)){
                                 return;

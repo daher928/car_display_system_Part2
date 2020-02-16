@@ -1,6 +1,7 @@
 package com.example.daher928.bmw_display_system;
 
 import android.content.Intent;
+import android.hardware.usb.UsbManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +10,7 @@ import android.widget.ImageView;
 
 public class MainMenu extends AppCompatActivity {
 
-    static  Thread myThread = null;
+    static Thread myThread = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +73,8 @@ public class MainMenu extends AppCompatActivity {
         });
 
         if(myThread==null){
-
-            myThread = new Thread(new SocketThread(getApplicationContext()));
+            myThread = new Thread(new SerialReceiverThread(getApplicationContext(),
+                    (UsbManager) getSystemService(this.USB_SERVICE)));
             myThread.start();
         }
     }
