@@ -1,12 +1,35 @@
 <html>
 <body>
 <h1>Infrastructure for The BMW Test Car Display Unit</h1>
-<h2>Part I</h2>
+<h2>Part II</h2>
 
 <h3>Supervisor: Boaz Mizrachi</h3>
 
-<h2>Status: DONE</h2>
-<h2>Grade: 95/100</h2>
+# BMW_Display_System_Part2 [Ongoing]
+
+Part2 of BMW Display System
+
+Part 1 reference -> https://github.com/daher928/BMW_Display_System_Part1/
+
+*Part 2's incentive is testing our BMW display system application in a real environment: A real vehicle with real-time data while driving.*
+
+### Major features and modification of this part over part I:
+
+*  Replacing TCP connection (Between PC & Android device) with USB connection, enabling data receiving from vehicle's sensors.
+  * For ease of development, we divide this part into 2 phases:
+          (A) The emulation phase: using Arduino as the source and data transmitter.
+          (B) When *A* works, we plug in a real moving vehicle.
+          
+* Cloud storage for test results and possible aggregations (Statistics)
+
+* Log-in and User registeration ability.
+
+* UI improvements
+
+![Image description](https://cdn.instructables.com/F11/NFGK/IJUCPG52/F11NFGKIJUCPG52.LARGE.jpg?auto=webp&frame=1&fit=bounds)
+
+# Part 1 recap:
+
 <h2>Abstract</h2>
 
 <p>In order to enhance and improve the driving experience in BMW cars in general and BMW’s Autonomous cars in particular, drivers and car testers must understand and feel not only the condition of the environment and the traffic around, but also the condition of the road, for example: fraction between the vehicle's tires and the road, humidity of the road, temperature and angle.</p>
@@ -15,17 +38,7 @@
 </p>
 
 <p>The BMW Test Car Display Unit project aims is to provide car drivers and testers with a friendly and easy-to-use dashboard application with the ability to graphically display the real-time data received by the car’s sensor, enabling full control over the configurations of the graphically displayed content (e.g. Resolution, Offset, Color...).</p>
-
 </body>
 
-<h2>Repository's Content</h2>
-
-<p>
-The current repository contains the Android Application of the Display Unit (Receiver + Functionality\Data processing), and the TCP Transmitter (BMW Transmitter).
-</p>
-<p>The Transmitter can also be found separately in the following repository: https://github.com/daher928/Transmitter
-</p>
 
 </html>
-# BMW_Display_System_Part2
-BMW_Display_System_Part2
