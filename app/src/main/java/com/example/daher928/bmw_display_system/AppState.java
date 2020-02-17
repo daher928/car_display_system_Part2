@@ -22,7 +22,6 @@ public class AppState {
 
     static String gridSelected = null;
 
-    static List<String> receivedData = new ArrayList<>();
     static Queue<String> queue = new LinkedTransferQueue<>();
 
     static boolean isLogActive = false;
