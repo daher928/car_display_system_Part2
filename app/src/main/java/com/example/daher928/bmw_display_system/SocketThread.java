@@ -70,7 +70,6 @@ class SocketThread extends Thread
                         }
                     });
 
-                    AppState.receivedData.add(message);
                     AppState.queue.add(message);
 
                 }
