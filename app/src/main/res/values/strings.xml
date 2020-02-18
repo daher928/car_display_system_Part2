@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BMW_display_system</string>
+    <string name="app_name">BMW Display System</string>
     <string name="live_condition">Live Condition</string>
     <string name="about">About</string>
     <string name="todo">TODO</string>

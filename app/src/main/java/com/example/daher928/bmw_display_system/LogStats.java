@@ -10,6 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -84,14 +85,16 @@ public class LogStats extends AppCompatActivity {
 
             String lines;
             while ((lines = bufferedReader.readLine()) != null) {
-                String token1 = lines.split("#")[0];
-                String[] tokens2 = token1.split(" ");
-                String id = tokens2[tokens2.length-1];
-                if(isFiltered){
-                    if(AppState.selectedIds.contains(id))
+//                String token1 = lines.split("#")[0];
+                String[] tokens2 = lines.split(" ");
+                String stream = tokens2[tokens2.length-1];
+                StreamLine streamLine = StreamParser.parse(stream);
+                if (isFiltered){
+                    if(AppState.selectedIds.contains(streamLine.sensorId))
                         completeLogView.append(lines + "\n");
-                }else
+                } else {
                     completeLogView.append(lines + "\n");
+                }
 
             }
         } catch (FileNotFoundException e) {

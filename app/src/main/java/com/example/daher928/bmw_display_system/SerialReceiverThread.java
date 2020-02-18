@@ -148,9 +148,9 @@ public class SerialReceiverThread extends Thread implements Runnable {
                     String[] split = streamLine.split(END_OF_LINE);
                     final String singleStream = split[0];
                     streamLine = split.length>0 ? split[1] : "";
-                    Log.d("singleStream =", singleStream);
+//                    Log.d("singleStream =", singleStream);
 
-                .    h.post(new Runnable() {
+                    h.post(new Runnable() {
                         @Override
                         public void run() {
                             Timestamp ts = new Timestamp(System.currentTimeMillis());
@@ -158,7 +158,7 @@ public class SerialReceiverThread extends Thread implements Runnable {
                             String textToSave = d1 + " " + singleStream + "\n";
 //                            Toast.makeText(context, "singlestream: "+singleStream.toString(), Toast.LENGTH_SHORT).show();
 
-                            if (true){ //todo change
+                            if (AppState.isLogActive){
                                 try {
                                     fileOutputStream.write(textToSave.getBytes());
 
@@ -168,20 +168,19 @@ public class SerialReceiverThread extends Thread implements Runnable {
                                     e.printStackTrace();
                                 }
                             }
-                            StreamLine parsedStream = StreamParser.parse(singleStream);
-                            // Pushing TS#SID#SVAL to queue
-                            if (parsedStream != null) {
-                                AppState.queue.add(parsedStream.toString());
-//                                Toast.makeText(context, "pushed to queue "+parsedStream.toString(), Toast.LENGTH_SHORT).show();
-
-                            } else {
-                                Toast.makeText(context, "parsedStream is null!!!", Toast.LENGTH_SHORT).show();
-//                                Log.d(" *** SerialRecieverThread: ","parsedStream is null!!!" );
-                            }
-
                         }
                     });
+                    StreamLine parsedStream = StreamParser.parse(singleStream);
+                    // Pushing TS#SID#SVAL to queue
+                    if (parsedStream != null) {
+                        AppState.queue.add(parsedStream.toString());
+//                                Toast.makeText(context, "pushed to queue "+parsedStream.toString(), Toast.LENGTH_SHORT).show();
 
+                    }
+//                            else {
+//                                Toast.makeText(context, "parsedStream is null!!!", Toast.LENGTH_SHORT).show();
+////                                Log.d(" *** SerialRecieverThread: ","parsedStream is null!!!" );
+//                            }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

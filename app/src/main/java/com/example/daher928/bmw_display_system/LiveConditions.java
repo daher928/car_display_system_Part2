@@ -146,14 +146,14 @@ public class LiveConditions extends AppCompatActivity {
 
         @Override
         public void run() {
-            Log.d(" *** StreamDisplayThread: ","START" );
-            Log.d(" *** StreamDisplayThread running=: ", (running==false)?"NO":"YES" );
+//            Log.d(" *** StreamDisplayThread: ","START" );
+//            Log.d(" *** StreamDisplayThread running=: ", (running==false)?"NO":"YES" );
 
 //            last_point = 0;
             while (running) {
                 while (!AppState.queue.isEmpty() && running) {
                     final String s = AppState.queue.poll();
-                    Log.d("*** Polled: ", s);
+//                    Log.d("*** Polled: ", s);
 
                     h.post(new Runnable() {
                         @Override
@@ -172,7 +172,7 @@ public class LiveConditions extends AppCompatActivity {
                                 return;
                             } else {
                                 final double double_val = Integer.valueOf(val, 16);
-                                Log.d("New point will be displayed", s);
+//                                Log.d("New point will be displayed", s);
                                 int graph_idx = AppState.selectedIds.indexOf(id);
                                 // Calendar calendar = Calendar.getInstance();
                                 Sensor currSensor = AppState.getSensorFromId(AppState.selectedIds.get(graph_idx));
