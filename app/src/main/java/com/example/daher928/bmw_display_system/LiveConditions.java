@@ -146,10 +146,14 @@ public class LiveConditions extends AppCompatActivity {
 
         @Override
         public void run() {
+            Log.d(" *** StreamDisplayThread: ","START" );
+            Log.d(" *** StreamDisplayThread running=: ", (running==false)?"NO":"YES" );
+
 //            last_point = 0;
             while (running) {
                 while (!AppState.queue.isEmpty() && running) {
                     final String s = AppState.queue.poll();
+                    Log.d("*** Polled: ", s);
 
                     h.post(new Runnable() {
                         @Override
@@ -193,6 +197,8 @@ public class LiveConditions extends AppCompatActivity {
                         }
                     });
                 }
+                Log.d(" *** StreamDisplayThread: ","RUNNING But nothing to poll!!" );
+
             }
         }
     }

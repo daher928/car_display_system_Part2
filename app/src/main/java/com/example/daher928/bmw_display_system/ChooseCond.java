@@ -93,7 +93,7 @@ public class ChooseCond extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 AppCompatCheckedTextView checkBox = (AppCompatCheckedTextView) view;
 
-                Log.i("SelectedList:", "");
+                Log.i(" *** SelectedList:", "");
                 if (checkBox.isChecked() == true){
                     if(AppState.selectedDiNamesList.size()==MAX_ALLOWED_SELECTIONS){ //Limit selections to 4
                         listView.setItemChecked(i,false);
@@ -108,10 +108,10 @@ public class ChooseCond extends AppCompatActivity {
                     AppState.selectedIds.remove(AppState.getSensorIdFromDiName(checkBox.getText().toString()));
                 }
                 for(String selected : AppState.selectedDiNamesList) {
-                    Log.i("", selected);
+                    Log.i("***", selected);
                 }
                 for(String id : AppState.selectedIds) {
-                    Log.i("", id);
+                    Log.i("***", id);
                 }
             }
         });

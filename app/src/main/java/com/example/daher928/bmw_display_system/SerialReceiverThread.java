@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.felhr.usbserial.UsbSerialDevice;
 import com.felhr.usbserial.UsbSerialInterface;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,6 +35,8 @@ public class SerialReceiverThread extends Thread implements Runnable {
     Context context;
     Handler h = new Handler();
 
+    FileOutputStream fileOutputStream;
+
     String streamLine = "";
 
     private static final int SERIAL_BAUD_RATE = 9600;
@@ -44,7 +47,14 @@ public class SerialReceiverThread extends Thread implements Runnable {
     public SerialReceiverThread(Context context, UsbManager usbManager) {
         this.context = context;
         this.usbManager = usbManager;
-
+        File dir = context.getFilesDir();
+        File file = new File(dir, "bmwLog");
+        file.delete();
+        try {
+            this.fileOutputStream = context.openFileOutput("bmwLog", Context.MODE_APPEND);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -137,19 +147,20 @@ public class SerialReceiverThread extends Thread implements Runnable {
                 if (streamLine.contains(END_OF_LINE)){
                     String[] split = streamLine.split(END_OF_LINE);
                     final String singleStream = split[0];
-                    streamLine = split[1];
+                    streamLine = split.length>0 ? split[1] : "";
+                    Log.d("singleStream =", singleStream);
 
-                    h.post(new Runnable() {
+                .    h.post(new Runnable() {
                         @Override
                         public void run() {
                             Timestamp ts = new Timestamp(System.currentTimeMillis());
                             Date d1 = new Date(ts.getTime());
                             String textToSave = d1 + " " + singleStream + "\n";
-                            if (false){ //todo change
+//                            Toast.makeText(context, "singlestream: "+singleStream.toString(), Toast.LENGTH_SHORT).show();
+
+                            if (true){ //todo change
                                 try {
-                                    FileOutputStream fileOutputStream = context.openFileOutput("bmwLog", Context.MODE_APPEND);
                                     fileOutputStream.write(textToSave.getBytes());
-                                    fileOutputStream.close();
 
                                 } catch (FileNotFoundException e) {
                                     e.printStackTrace();
@@ -157,39 +168,24 @@ public class SerialReceiverThread extends Thread implements Runnable {
                                     e.printStackTrace();
                                 }
                             }
+                            StreamLine parsedStream = StreamParser.parse(singleStream);
+                            // Pushing TS#SID#SVAL to queue
+                            if (parsedStream != null) {
+                                AppState.queue.add(parsedStream.toString());
+//                                Toast.makeText(context, "pushed to queue "+parsedStream.toString(), Toast.LENGTH_SHORT).show();
+
+                            } else {
+                                Toast.makeText(context, "parsedStream is null!!!", Toast.LENGTH_SHORT).show();
+//                                Log.d(" *** SerialRecieverThread: ","parsedStream is null!!!" );
+                            }
 
                         }
                     });
-                    StreamLine parsedStream = StreamParser.parse(singleStream);
-                    // Pushing TS#SID#SVAL to queue
-                    AppState.receivedData.add(parsedStream.toString());
-                    AppState.queue.add(parsedStream.toString());
+
                 }
-
-//                if (data.contains("\r")){
-//                    String split = data.split("\r")[0];
-//                    if (!split.isEmpty()) {
-//                        String split2 = streamLine.split("\n")[0];
-//                        if (!split2.isEmpty()) {
-//                            streamLine += split2;
-//                        }
-//                    } else {
-//                        streamLine = streamLine.split("\n")[0];
-//                    }
-//                    tvAppend(MainActivity.this.streamLine);
-//                    tvAppend("\n");
-//                    streamLine = "";
-//                }
-//                else {
-//                    streamLine+=data;
-//                }
-
-                //data.concat("\n");
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            //
-
         }
     };
 }

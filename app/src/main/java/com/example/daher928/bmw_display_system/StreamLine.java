@@ -16,8 +16,8 @@ public class StreamLine {
 
     public StreamLine(String stream) {
         this.timeStamp = System.currentTimeMillis();
-        this.sensorId = stream.substring(1, 7);
-        this.sensorData = stream.substring(7);
+        this.sensorId = stream.substring(1, 5).toLowerCase();
+        this.sensorData = stream.substring(5);
     }
 
     @Override
