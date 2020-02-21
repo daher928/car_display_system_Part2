@@ -16,8 +16,7 @@ import java.net.Socket;
 import java.sql.Timestamp;
 import java.util.Date;
 
-class SocketThread extends Thread
-        implements Runnable {
+class SocketThread extends Thread implements Runnable {
     static int port = 9191;
     Socket s;
     ServerSocket ss;
@@ -27,11 +26,10 @@ class SocketThread extends Thread
     Context context;
     String message;
 
+    public final String LOG_FILE_NAME = "bmwLog";
+
     public SocketThread(Context context) {
         this.context = context;
-        File dir = context.getFilesDir();
-        File file = new File(dir, "bmwLog");
-        boolean deleted = file.delete();
     }
 
     @Override

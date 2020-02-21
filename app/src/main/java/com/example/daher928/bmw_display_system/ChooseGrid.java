@@ -14,6 +14,9 @@ public class ChooseGrid extends AppCompatActivity {
     ToggleButton list_button ;
     ToggleButton blocks_button ;
     ToggleButton slides_button ;
+
+    private final static String PLEASE_SELECT_GRID_MESSAGE = "Please Select Grid";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +50,7 @@ public class ChooseGrid extends AppCompatActivity {
                 if(AppState.gridSelected != null)
                     startActivity(new Intent(ChooseGrid.this, LiveConditions.class));
                 else
-                    Toast.makeText(getApplicationContext(),"Please Select Grid", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),PLEASE_SELECT_GRID_MESSAGE , Toast.LENGTH_SHORT).show();
             }
         });
 

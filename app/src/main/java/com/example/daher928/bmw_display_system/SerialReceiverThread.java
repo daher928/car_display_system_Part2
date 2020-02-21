@@ -43,15 +43,16 @@ public class SerialReceiverThread extends Thread implements Runnable {
     private static final int ARDUINO_VENDOR_ID = 0x2341;
     private static final String END_OF_LINE = "\r\n";
     public final String ACTION_USB_PERMISSION = "com.daher.arduinousb.USB_PERMISSION";
+    public final String LOG_FILE_NAME = "bmwLog";
 
     public SerialReceiverThread(Context context, UsbManager usbManager) {
         this.context = context;
         this.usbManager = usbManager;
         File dir = context.getFilesDir();
-        File file = new File(dir, "bmwLog");
+        File file = new File(dir, LOG_FILE_NAME);
         file.delete();
         try {
-            this.fileOutputStream = context.openFileOutput("bmwLog", Context.MODE_APPEND);
+            this.fileOutputStream = context.openFileOutput(LOG_FILE_NAME, Context.MODE_APPEND);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -170,17 +171,11 @@ public class SerialReceiverThread extends Thread implements Runnable {
                             }
                         }
                     });
-                    StreamLine parsedStream = StreamParser.parse(singleStream);
+                    StreamLine parsedStream = StreamUtil.parse(singleStream);
                     // Pushing TS#SID#SVAL to queue
                     if (parsedStream != null) {
                         AppState.queue.add(parsedStream.toString());
-//                                Toast.makeText(context, "pushed to queue "+parsedStream.toString(), Toast.LENGTH_SHORT).show();
-
                     }
-//                            else {
-//                                Toast.makeText(context, "parsedStream is null!!!", Toast.LENGTH_SHORT).show();
-////                                Log.d(" *** SerialRecieverThread: ","parsedStream is null!!!" );
-//                            }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -1,6 +1,6 @@
 package com.example.daher928.bmw_display_system;
 
-public class StreamParser {
+public class StreamUtil {
 
     public static StreamLine parse(String streamStr){
         if (streamStr.isEmpty() || streamStr.charAt(0)!='1'){

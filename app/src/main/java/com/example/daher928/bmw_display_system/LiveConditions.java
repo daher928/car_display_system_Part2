@@ -22,8 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class LiveConditions extends AppCompatActivity {
-
-    static TextView textView;
     static double last_point = 0;
     static boolean running;
     private static LineGraphSeries<DataPoint> series1 = null;

@@ -36,22 +36,11 @@ public class AppState {
         return  diNamesList.toArray(new String[0]);
     }
 
-    public static String[] getSensorsIds() {   //ids
-        Iterator<Sensor> iterator = AppState.sensors_list.iterator();
-        ArrayList<String> idsList = new ArrayList<>();
-
-        while (iterator.hasNext()) {
-            idsList.add(iterator.next().getId());
-        }
-        return  idsList.toArray(new String[0]);
-    }
-
     public static String getSensorIdFromDiName(String diName){
         return (diName.split("=")[1]).split("\\)")[0];
     }
 
     public static Sensor getSensorFromId(String id){
-
         for(Sensor s : sensors_list){
             if(s.getId().equals(id))
                 return s;

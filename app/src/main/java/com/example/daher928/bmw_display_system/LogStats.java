@@ -10,9 +10,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -21,7 +18,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class LogStats extends AppCompatActivity {
+
     static TextView completeLogView;
+
+    public final String LOG_FILE_NAME = "bmwLog";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +77,7 @@ public class LogStats extends AppCompatActivity {
         if (isFiltered && AppState.selectedIds.size()==0)
             return;
         try {
-            FileInputStream fileInputStream = openFileInput("bmwLog");
+            FileInputStream fileInputStream = openFileInput(LOG_FILE_NAME);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
 
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -85,10 +85,9 @@ public class LogStats extends AppCompatActivity {
 
             String lines;
             while ((lines = bufferedReader.readLine()) != null) {
-//                String token1 = lines.split("#")[0];
                 String[] tokens2 = lines.split(" ");
                 String stream = tokens2[tokens2.length-1];
-                StreamLine streamLine = StreamParser.parse(stream);
+                StreamLine streamLine = StreamUtil.parse(stream);
                 if (isFiltered){
                     if(AppState.selectedIds.contains(streamLine.sensorId))
                         completeLogView.append(lines + "\n");

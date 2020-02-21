@@ -23,7 +23,5 @@ public class StreamLine {
     @Override
     public String toString() {
         return timeStamp + "#" + sensorId + "#" + sensorData;
-
-
     }
 }

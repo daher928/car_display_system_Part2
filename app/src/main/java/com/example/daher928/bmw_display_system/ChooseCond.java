@@ -21,6 +21,7 @@ public class ChooseCond extends AppCompatActivity {
     final static int MAX_ALLOWED_SELECTIONS = 3;
     static List<Integer> selectedPositionsList = new ArrayList<>();
 
+    private final static String PLEASE_SELECT_CONDITION_MESSAGE = "Please Select Conditions";
 
     static ListView listView;
     @Override
@@ -60,7 +61,7 @@ public class ChooseCond extends AppCompatActivity {
                 if(selectedPositionsList.size()>0)
                     startActivity(new Intent(ChooseCond.this, ChooseConfig.class));
                 else
-                    Toast.makeText(getApplicationContext(),"Please Select Conditions", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),PLEASE_SELECT_CONDITION_MESSAGE, Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -86,14 +87,13 @@ public class ChooseCond extends AppCompatActivity {
         for(Integer position : selectedPositionsList){
             listView.setItemChecked(position,true);
         }
-
-
+        
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 AppCompatCheckedTextView checkBox = (AppCompatCheckedTextView) view;
 
-                Log.i(" *** SelectedList:", "");
+                Log.i("Choose Condition", "SelectedList= ");
                 if (checkBox.isChecked() == true){
                     if(AppState.selectedDiNamesList.size()==MAX_ALLOWED_SELECTIONS){ //Limit selections to 4
                         listView.setItemChecked(i,false);
@@ -108,10 +108,10 @@ public class ChooseCond extends AppCompatActivity {
                     AppState.selectedIds.remove(AppState.getSensorIdFromDiName(checkBox.getText().toString()));
                 }
                 for(String selected : AppState.selectedDiNamesList) {
-                    Log.i("***", selected);
+                    Log.i("-", selected);
                 }
                 for(String id : AppState.selectedIds) {
-                    Log.i("***", id);
+                    Log.i("-", id);
                 }
             }
         });

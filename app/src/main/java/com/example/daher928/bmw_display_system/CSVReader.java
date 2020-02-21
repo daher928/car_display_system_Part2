@@ -12,24 +12,26 @@ import java.util.Comparator;
 
 public class CSVReader{
 
+    private static final String DELIMITER = ",";
+    private static final String CHARSET_FORMAT = "UTF-8";
 
+    /*
+    Reads text from character-input stream, buffering characters for efficient reading
+     */
     public static void readSensorsCSV(InputStream is) {
         AppState.sensors_list.clear();
-        // Reads text from character-input stream, buffering characters for efficient reading
         BufferedReader reader = new BufferedReader(
-                new InputStreamReader(is, Charset.forName("UTF-8"))
+                new InputStreamReader(is, Charset.forName(CHARSET_FORMAT))
         );
 
-        // Initialization
         String line = "";
-        // Initialization
         try {
 
             // If buffer is not empty
             while ((line = reader.readLine()) != null) {
                 Log.d("MyActivity","Line: " + line);
                 // use comma as separator columns of CSV
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(DELIMITER);
                 // Read the data
                 Sensor new_sensor = new Sensor();
 
@@ -63,5 +65,4 @@ public class CSVReader{
             e.printStackTrace();
         }
     }
-
 }
