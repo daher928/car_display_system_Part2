@@ -1,0 +1,19 @@
+Prerequisites
+Install or update Android Studio to its latest version.
+
+Make sure that your project meets these requirements:
+
+Targets API level 16 (Jelly Bean) or later
+Uses Gradle 4.1 or later
+Uses Jetpack (AndroidX), which includes meeting these version requirements:
+com.android.tools.build:gradle v3.2.1 or later
+compileSdkVersion 28 or later
+Set up a physical device or use an emulator to run your app.
+Emulators must use an emulator image with Google Play.
+
+Sign into Firebase using your Google account.
+______________________________________________________________________________
+
+-- > Set up tutorial: https://firebase.google.com/docs/android/setup
+
+-- > Firebase example projects: https://github.com/firebase/quickstart-android
