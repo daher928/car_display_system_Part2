@@ -38,6 +38,9 @@ Part 1 reference -> https://github.com/daher928/BMW_Display_System_Part1/
 </p>
 
 <p>The BMW Test Car Display Unit project aims is to provide car drivers and testers with a friendly and easy-to-use dashboard application with the ability to graphically display the real-time data received by the car’s sensor, enabling full control over the configurations of the graphically displayed content (e.g. Resolution, Offset, Color...).</p>
+
+Part 1 reference -> https://github.com/daher928/BMW_Display_System_Part1/
+
 </body>
 
 
