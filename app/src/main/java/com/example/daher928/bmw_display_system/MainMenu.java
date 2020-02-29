@@ -2,19 +2,33 @@ package com.example.daher928.bmw_display_system;
 
 import android.content.Intent;
 import android.hardware.usb.UsbManager;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.core.FirestoreClient;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainMenu extends AppCompatActivity {
 
     static Thread myThread = null;
-
-    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +61,11 @@ public class MainMenu extends AppCompatActivity {
             }
         });
 
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         //-- About & Help page button
         about_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
                 if (button.isPressed()) {
-                    // dummy log for analytics
-                    Bundle bundle = new Bundle();
-                    bundle.putString("SensorID", "0Xdummy");
-                    bundle.putString("SensorValue", "123456");
-                    mFirebaseAnalytics.logEvent("sensor_data", bundle);
-
                     startActivity(new Intent(MainMenu.this, AboutHelp.class));
                 }
 

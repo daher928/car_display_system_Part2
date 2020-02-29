@@ -1,9 +1,12 @@
 package com.example.daher928.bmw_display_system;
 
 import android.content.Intent;
+import android.icu.text.DateFormat;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -11,17 +14,32 @@ import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LogStats extends AppCompatActivity {
 
     static TextView completeLogView;
+    private FirebaseFirestore firestore;
 
-    public final String LOG_FILE_NAME = "bmwLog";
+    public final String ALL_SENSORS_COLLECTION_NAME = "all_sensors";
+    public final String SENSOR_ID_DOCUMENT_PROPERTY = "sensor_id";
+    public final String SENSOR_DATA_DOCUMENT_PROPERTY = "sensor_data";
+    public final String DATE_DOCUMENT_PROPERTY = "timestamp";
+    public final String LOG_COLLECTION_NAME = "bmwLog";
+
+//    public final String LOG_FILE_NAME = "bmwLog";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +63,8 @@ public class LogStats extends AppCompatActivity {
             }
 
         });
+
+        firestore = FirebaseFirestore.getInstance();
 
         completeLogView = findViewById(R.id.completeLogTextView);
         completeLogView.setMovementMethod(new ScrollingMovementMethod());
@@ -74,33 +94,65 @@ public class LogStats extends AppCompatActivity {
     }
 
     void readLog(boolean isFiltered){
-        if (isFiltered && AppState.selectedIds.size()==0)
+        if (isFiltered && AppState.selectedIds.size()==0) {
             return;
-        try {
-            FileInputStream fileInputStream = openFileInput(LOG_FILE_NAME);
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            StringBuffer stringBuffer = new StringBuffer();
-
-            String lines;
-            while ((lines = bufferedReader.readLine()) != null) {
-                String[] tokens2 = lines.split(" ");
-                String stream = tokens2[tokens2.length-1];
-                StreamLine streamLine = StreamUtil.parse(stream);
-                if (isFiltered){
-                    if(AppState.selectedIds.contains(streamLine.sensorId))
-                        completeLogView.append(lines + "\n");
-                } else {
-                    completeLogView.append(lines + "\n");
-                }
-
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
+        completeLogView.setText("");
+//            FileInputStream fileInputStream = openFileInput(LOG_FILE_NAME);
+//            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+
+//            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+//            StringBuffer stringBuffer = new StringBuffer();
+
+//            String lines;
+//            while ((lines = bufferedReader.readLine()) != null) {
+//                String[] tokens2 = lines.split(" ");
+//                String stream = tokens2[tokens2.length-1];
+//                StreamLine streamLine = StreamUtil.parse(stream);
+//                if (isFiltered){
+//                    if(AppState.selectedIds.contains(streamLine.sensorId))
+//                        completeLogView.append(lines + "\n");
+//                } else {
+//                    completeLogView.append(lines + "\n");
+//                }
+//            }
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        if (isFiltered){
+            firestore.collection(LOG_COLLECTION_NAME)
+                .whereIn(SENSOR_ID_DOCUMENT_PROPERTY, AppState.selectedIds)
+                .orderBy(DATE_DOCUMENT_PROPERTY, Query.Direction.ASCENDING)
+                .get()
+                .addOnCompleteListener(task1 -> {
+                            if (task1.isSuccessful()) {
+                                task1.getResult().getDocuments().forEach(
+                                        doc -> completeLogView.append(
+                                                doc.get(DATE_DOCUMENT_PROPERTY) + " ID=" +
+                                                        doc.get(SENSOR_ID_DOCUMENT_PROPERTY) + " Value=" +
+                                                        doc.get(SENSOR_DATA_DOCUMENT_PROPERTY) + "\n"));
+                            } else {
+                                Log.d("ERROR", "get failed with ", task1.getException());
+                            }
+                        }
+                );
+        } else {
+            firestore.collection(LOG_COLLECTION_NAME)
+                    .orderBy(DATE_DOCUMENT_PROPERTY, Query.Direction.ASCENDING)
+                    .get()
+                    .addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()) {
+                                    task1.getResult().getDocuments().forEach(
+                                            doc -> completeLogView.append(
+                                                    doc.get(DATE_DOCUMENT_PROPERTY) + " ID=" +
+                                                            doc.get(SENSOR_ID_DOCUMENT_PROPERTY) + " Value=" +
+                                                            doc.get(SENSOR_DATA_DOCUMENT_PROPERTY) + "\n"));
+                                } else {
+                                    Log.d("ERROR", "get failed with ", task1.getException());
+                                }
+                            }
+                    );
+        }
+
     }
 
 }

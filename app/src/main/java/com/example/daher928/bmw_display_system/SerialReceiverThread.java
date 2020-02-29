@@ -8,12 +8,21 @@ import android.content.IntentFilter;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
+import android.icu.text.DateFormat;
+import android.icu.text.SimpleDateFormat;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.felhr.usbserial.UsbSerialDevice;
 import com.felhr.usbserial.UsbSerialInterface;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,6 +32,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.content.ContentValues.TAG;
 
 public class SerialReceiverThread extends Thread implements Runnable {
 
@@ -35,7 +46,8 @@ public class SerialReceiverThread extends Thread implements Runnable {
     Context context;
     Handler h = new Handler();
 
-    FileOutputStream fileOutputStream;
+//    FileOutputStream fileOutputStream;
+    private FirebaseFirestore firestore;
 
     String streamLine = "";
 
@@ -44,18 +56,24 @@ public class SerialReceiverThread extends Thread implements Runnable {
     private static final String END_OF_LINE = "\r\n";
     public final String ACTION_USB_PERMISSION = "com.daher.arduinousb.USB_PERMISSION";
     public final String LOG_FILE_NAME = "bmwLog";
+    public final String LOG_COLLECTION_NAME = "bmwLog";
+    public final String ALL_SENSORS_COLLECTION_NAME = "all_sensors";
+    public final String SENSOR_ID_DOCUMENT_PROPERTY = "sensor_id";
+    public final String SENSOR_DATA_DOCUMENT_PROPERTY = "sensor_data";
+    public final String DATE_DOCUMENT_PROPERTY = "timestamp";
 
     public SerialReceiverThread(Context context, UsbManager usbManager) {
         this.context = context;
         this.usbManager = usbManager;
-        File dir = context.getFilesDir();
-        File file = new File(dir, LOG_FILE_NAME);
-        file.delete();
-        try {
-            this.fileOutputStream = context.openFileOutput(LOG_FILE_NAME, Context.MODE_APPEND);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        firestore = FirebaseFirestore.getInstance();
+//        File dir = context.getFilesDir();
+//        File file = new File(dir, LOG_FILE_NAME);
+//        file.delete();
+//        try {
+//            this.fileOutputStream = context.openFileOutput(LOG_FILE_NAME, Context.MODE_APPEND);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
@@ -151,31 +169,62 @@ public class SerialReceiverThread extends Thread implements Runnable {
                     streamLine = split.length>0 ? split[1] : "";
 //                    Log.d("singleStream =", singleStream);
 
-                    h.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Timestamp ts = new Timestamp(System.currentTimeMillis());
-                            Date d1 = new Date(ts.getTime());
-                            String textToSave = d1 + " " + singleStream + "\n";
-//                            Toast.makeText(context, "singlestream: "+singleStream.toString(), Toast.LENGTH_SHORT).show();
-
-                            if (AppState.isLogActive){
-                                try {
-                                    fileOutputStream.write(textToSave.getBytes());
-
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                    });
                     StreamLine parsedStream = StreamUtil.parse(singleStream);
                     // Pushing TS#SID#SVAL to queue
                     if (parsedStream != null) {
                         AppState.queue.add(parsedStream.toString());
                     }
+
+                    h.post(() -> {
+//                        Timestamp ts = new Timestamp(System.currentTimeMillis());
+//                        Date d1 = new Date(ts.getTime());
+//                        String textToSave = d1 + " " + singleStream + "\n";
+//                            Toast.makeText(context, "singlestream: "+singleStream.toString(), Toast.LENGTH_SHORT).show();
+                        if (AppState.isLogActive){
+//                              fileOutputStream.write(textToSave.getBytes());
+                            // Log to firestore
+                            if (AppState.selectedIds.contains(parsedStream.getSensorId())) {
+                                Map<String, Object> new_data = new HashMap<>();
+                                String sensorId = parsedStream.getSensorId();
+                                String sensorData = parsedStream.getSensorData();
+                                long timestamp = parsedStream.getTimeStamp();
+                                Date date = new Date(timestamp);
+//                            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+//                            String strDate = dateFormat.format(date);
+
+                                new_data.put(SENSOR_ID_DOCUMENT_PROPERTY, sensorId);
+                                new_data.put(SENSOR_DATA_DOCUMENT_PROPERTY, sensorData);
+                                new_data.put(DATE_DOCUMENT_PROPERTY, date);
+
+                                firestore.collection(LOG_COLLECTION_NAME).add(new_data)
+                                        .addOnCompleteListener(task -> {
+                                            if (!task.isSuccessful()) {
+                                                Log.d(TAG, "get failed with ", task.getException());
+                                            }
+                                        });
+                            }
+//                            Map<String, Object> sensor_info = new HashMap<>();
+//                            sensor_info.put(SENSOR_ID_DOCUMENT_PROPERTY, sensorId);
+
+//                            DocumentReference docRef = firestore
+//                                    .collection(ALL_SENSORS_COLLECTION_NAME)
+//                                    .document(sensorId);
+//                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                                @Override
+//                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                                    if (task.isSuccessful()) {
+//                                        DocumentSnapshot document = task.getResult();
+//                                        if (!document.exists()) {
+//                                            firestore.collection(ALL_SENSORS_COLLECTION_NAME).add(sensor_info);
+//                                            Log.d("New sensor", sensorId);
+//                                        }
+//                                    } else {
+//                                        Log.d(TAG, "get failed with ", task.getException());
+//                                    }
+//                                }
+//                            });
+                        }
+                    });
                 }
             } catch (Exception e) {
                 e.printStackTrace();

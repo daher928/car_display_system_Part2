@@ -24,4 +24,16 @@ public class StreamLine {
     public String toString() {
         return timeStamp + "#" + sensorId + "#" + sensorData;
     }
+
+    public long getTimeStamp() {
+        return timeStamp;
+    }
+
+    public String getSensorId() {
+        return sensorId;
+    }
+
+    public String getSensorData() {
+        return sensorData;
+    }
 }
