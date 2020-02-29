@@ -1,9 +1,9 @@
 package com.example.daher928.bmw_display_system;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatCheckedTextView;
+import androidx.appcompat.widget.AppCompatCheckedTextView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;

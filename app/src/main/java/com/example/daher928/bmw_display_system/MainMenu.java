@@ -2,15 +2,19 @@ package com.example.daher928.bmw_display_system;
 
 import android.content.Intent;
 import android.hardware.usb.UsbManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 public class MainMenu extends AppCompatActivity {
 
     static Thread myThread = null;
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +47,18 @@ public class MainMenu extends AppCompatActivity {
             }
         });
 
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
         //-- About & Help page button
         about_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
                 if (button.isPressed()) {
+                    // dummy log for analytics
+                    Bundle bundle = new Bundle();
+                    bundle.putString("SensorID", "0Xdummy");
+                    bundle.putString("SensorValue", "123456");
+                    mFirebaseAnalytics.logEvent("sensor_data", bundle);
+
                     startActivity(new Intent(MainMenu.this, AboutHelp.class));
                 }
 
