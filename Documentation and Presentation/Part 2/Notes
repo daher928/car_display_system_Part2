@@ -1,0 +1,13 @@
+NOTES:
+
+______________________________________________________________
+To add in presentation & report:
+  - Logging mechanism (Firestore Realtime Database)
+      (*) Writing logs
+      (*) Showing logs in App
+      
+  - Deleting outdated logs (Firebase functions deployment)
+      (*) Node.js 8 + Javascript
+      (*) Functions development
+      (*) Functions deployment
+______________________________________________________________
