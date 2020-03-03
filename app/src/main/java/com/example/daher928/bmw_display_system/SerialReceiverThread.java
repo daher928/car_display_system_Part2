@@ -20,6 +20,7 @@ import com.felhr.usbserial.UsbSerialDevice;
 import com.felhr.usbserial.UsbSerialInterface;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -61,6 +62,7 @@ public class SerialReceiverThread extends Thread implements Runnable {
     public final String SENSOR_ID_DOCUMENT_PROPERTY = "sensor_id";
     public final String SENSOR_DATA_DOCUMENT_PROPERTY = "sensor_data";
     public final String DATE_DOCUMENT_PROPERTY = "timestamp";
+    public final String USER_EMAIL_PROPERTY = "userId";
 
     public SerialReceiverThread(Context context, UsbManager usbManager) {
         this.context = context;
@@ -188,6 +190,7 @@ public class SerialReceiverThread extends Thread implements Runnable {
                                 String sensorId = parsedStream.getSensorId();
                                 String sensorData = parsedStream.getSensorData();
                                 long timestamp = parsedStream.getTimeStamp();
+                                String userId = FirebaseAuth.getInstance().getCurrentUser().getEmail();
                                 Date date = new Date(timestamp);
 //                            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 //                            String strDate = dateFormat.format(date);
@@ -195,6 +198,7 @@ public class SerialReceiverThread extends Thread implements Runnable {
                                 new_data.put(SENSOR_ID_DOCUMENT_PROPERTY, sensorId);
                                 new_data.put(SENSOR_DATA_DOCUMENT_PROPERTY, sensorData);
                                 new_data.put(DATE_DOCUMENT_PROPERTY, date);
+                                new_data.put(USER_EMAIL_PROPERTY, userId);
 
                                 firestore.collection(LOG_COLLECTION_NAME).add(new_data)
                                         .addOnCompleteListener(task -> {

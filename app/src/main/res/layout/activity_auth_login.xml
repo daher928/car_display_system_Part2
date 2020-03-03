@@ -8,22 +8,24 @@
     <EditText
         android:id="@+id/loginEmail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_margin="15dp"
-        android:background="@drawable/com_facebook_auth_dialog_header_background"
+        android:background="@color/colorWhite"
+        android:backgroundTint="@color/browser_actions_bg_grey"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:textColor="@color/browser_actions_bg_grey" />
+        android:textColor="#2B2A2A" />
 
     <EditText
         android:id="@+id/loginpaswd"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_margin="15dp"
-        android:background="@drawable/com_facebook_auth_dialog_header_background"
+        android:background="@color/colorWhite"
+        android:backgroundTint="@color/browser_actions_bg_grey"
         android:hint="Password"
         android:inputType="numberPassword"
-        android:textColor="@color/browser_actions_bg_grey" />
+        android:textColor="#2B2A2A" />
 
     <Button
         android:id="@+id/btnLogIn"

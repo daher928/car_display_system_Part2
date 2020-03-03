@@ -15,6 +15,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -37,6 +38,8 @@ public class LogStats extends AppCompatActivity {
     public final String SENSOR_ID_DOCUMENT_PROPERTY = "sensor_id";
     public final String SENSOR_DATA_DOCUMENT_PROPERTY = "sensor_data";
     public final String DATE_DOCUMENT_PROPERTY = "timestamp";
+    public final String USER_EMAIL_PROPERTY = "userId";
+
     public final String LOG_COLLECTION_NAME = "bmwLog";
 
 //    public final String LOG_FILE_NAME = "bmwLog";
@@ -121,6 +124,7 @@ public class LogStats extends AppCompatActivity {
         if (isFiltered){
             firestore.collection(LOG_COLLECTION_NAME)
                 .whereIn(SENSOR_ID_DOCUMENT_PROPERTY, AppState.selectedIds)
+                .whereEqualTo(USER_EMAIL_PROPERTY, FirebaseAuth.getInstance().getCurrentUser().getEmail())
                 .orderBy(DATE_DOCUMENT_PROPERTY, Query.Direction.ASCENDING)
                 .get()
                 .addOnCompleteListener(task1 -> {
@@ -138,6 +142,7 @@ public class LogStats extends AppCompatActivity {
         } else {
             firestore.collection(LOG_COLLECTION_NAME)
                     .orderBy(DATE_DOCUMENT_PROPERTY, Query.Direction.ASCENDING)
+                    .whereEqualTo(USER_EMAIL_PROPERTY, FirebaseAuth.getInstance().getCurrentUser().getEmail())
                     .get()
                     .addOnCompleteListener(task1 -> {
                                 if (task1.isSuccessful()) {
