@@ -25,7 +25,6 @@ exports.logAdded = functions.firestore.document('bmwLog/{docID}').onWrite((chang
  return;
  });
 
-
 exports.truncate = functions.database.ref('bmwLog').onWrite(async (change) => {
   const parentRef = change.after.ref.parent;
   const snapshot = await parentRef.once('value');
