@@ -20,9 +20,9 @@ Part 1 reference -> https://github.com/daher928/BMW_Display_System_Part1/
           (A) The emulation phase: using Arduino as the source and data transmitter.
           (B) When *A* works, we plug in a real moving vehicle.
           
-* Cloud storage for test results and possible aggregations (Statistics)
+* Cloud storage for test results and possible aggregations (Using Firebase Database and Functions)
 
-* Log-in and User registeration ability.
+* Log-in and User registeration ability. (Using Firebase Authentication)
 
 * UI improvements
 
