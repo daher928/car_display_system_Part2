@@ -73,7 +73,7 @@ public class AuthenticationMain extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(AuthenticationMain.this.getApplicationContext(),
                                         "Sign Up unsuccessful: " + task.getException().getMessage(),
-                                        Toast.LENGTH_SHORT).show();
+                                        Toast.LENGTH_LONG).show();
                             } else {
                                 startActivity(new Intent(AuthenticationMain.this, MainMenu.class));
                             }
