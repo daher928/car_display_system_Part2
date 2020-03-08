@@ -200,7 +200,10 @@ public class SerialReceiverThread extends Thread implements Runnable {
                                 new_data.put(DATE_DOCUMENT_PROPERTY, date);
                                 new_data.put(USER_EMAIL_PROPERTY, userId);
 
-                                firestore.collection(LOG_COLLECTION_NAME).add(new_data)
+                                firestore.collection("Users")
+                                        .document(userId)
+                                        .collection("logs")
+                                        .add(new_data)
                                         .addOnCompleteListener(task -> {
                                             if (!task.isSuccessful()) {
                                                 Log.d(TAG, "get failed with ", task.getException());

@@ -1,5 +1,8 @@
 package com.example.daher928.bmw_display_system;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SensorConfiguration {
 
     private int color;
@@ -36,5 +39,12 @@ public class SensorConfiguration {
         this.resolution = resolution;
     }
 
+    public Map<String, Object> sensorConfigMap(){
+        Map<String, Object> map = new HashMap<>();
+        map.put("maxY", maxY);
+        map.put("color", color);
+        map.put("resolution", resolution);
+        return map;
+    }
 
 }

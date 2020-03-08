@@ -121,8 +121,13 @@ public class LogStats extends AppCompatActivity {
 //                }
 //            }
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        String logCollectionId = "userLog/" + LOG_COLLECTION_NAME + "/" + userId;
+
         if (isFiltered){
-            firestore.collection(LOG_COLLECTION_NAME)
+            firestore.collection("Users")
+                .document(userId)
+                .collection("logs")
                 .whereIn(SENSOR_ID_DOCUMENT_PROPERTY, AppState.selectedIds)
                 .whereEqualTo(USER_EMAIL_PROPERTY, FirebaseAuth.getInstance().getCurrentUser().getEmail())
                 .orderBy(DATE_DOCUMENT_PROPERTY, Query.Direction.ASCENDING)
@@ -140,7 +145,9 @@ public class LogStats extends AppCompatActivity {
                         }
                 );
         } else {
-            firestore.collection(LOG_COLLECTION_NAME)
+            firestore.collection("Users")
+                    .document(userId)
+                    .collection("logs")
                     .orderBy(DATE_DOCUMENT_PROPERTY, Query.Direction.ASCENDING)
                     .whereEqualTo(USER_EMAIL_PROPERTY, FirebaseAuth.getInstance().getCurrentUser().getEmail())
                     .get()

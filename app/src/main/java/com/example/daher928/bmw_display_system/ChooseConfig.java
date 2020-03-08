@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,7 +19,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import org.w3c.dom.Text;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static android.content.ContentValues.TAG;
 
 public class ChooseConfig extends AppCompatActivity {
 
@@ -28,6 +38,10 @@ public class ChooseConfig extends AppCompatActivity {
     int[] colors = new int[] {
             Color.BLUE, Color.RED, Color.GREEN, Color.BLACK, Color.YELLOW
     };
+
+    public final String USER_EMAIL_PROPERTY = "userId";
+    public final String USER_SENSORS_CONFIG = "sensorsConfigs";
+    public final String LOG_COLLECTION_NAME = "bmwLog";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +72,13 @@ public class ChooseConfig extends AppCompatActivity {
 
         final int numSelectedSensors = AppState.selectedIds.size();
 
+        final Sensor sensor1;
+        final Sensor sensor2;
+        final Sensor sensor3;
+        final Sensor sensor4;
+
         //Config components
-        final Sensor sensor1 = AppState.getSensorFromId(AppState.selectedIds.get(0));
+        sensor1 = AppState.getSensorFromId(AppState.selectedIds.get(0));
         sensor1.resetConfig();
         TextView sensor1txtView = findViewById(R.id.sensorName1);
         sensor1txtView.setText(sensor1.getName() + " [0x" + sensor1.getId() + "]");
@@ -80,7 +99,7 @@ public class ChooseConfig extends AppCompatActivity {
         if(numSelectedSensors > 1){
             TableRow row2 = findViewById(R.id.row2);
             row2.setVisibility(View.VISIBLE);
-            final Sensor sensor2 = AppState.getSensorFromId(AppState.selectedIds.get(1));
+            sensor2 = AppState.getSensorFromId(AppState.selectedIds.get(1));
             sensor2.resetConfig();
             TextView sensor2txtView = findViewById(R.id.sensorName2);
             sensor2txtView.setText(sensor2.getName() + " [0x" + sensor2.getId() + "]");
@@ -102,7 +121,7 @@ public class ChooseConfig extends AppCompatActivity {
         if(numSelectedSensors > 2){
             TableRow row3 = findViewById(R.id.row3);
             row3.setVisibility(View.VISIBLE);
-            final Sensor sensor3 = AppState.getSensorFromId(AppState.selectedIds.get(2));
+            sensor3 = AppState.getSensorFromId(AppState.selectedIds.get(2));
             sensor3.resetConfig();
             TextView sensor3txtView = findViewById(R.id.sensorName3);
             sensor3txtView.setText(sensor3.getName() + " [0x" + sensor3.getId() + "]");
@@ -124,7 +143,7 @@ public class ChooseConfig extends AppCompatActivity {
         if(numSelectedSensors > 3){
             TableRow row4 = findViewById(R.id.row4);
             row4.setVisibility(View.VISIBLE);
-            final Sensor sensor4 = AppState.getSensorFromId(AppState.selectedIds.get(3));
+            sensor4 = AppState.getSensorFromId(AppState.selectedIds.get(3));
             sensor4.resetConfig();
             TextView sensor4txtView = findViewById(R.id.sensorName4);
             sensor4txtView.setText(sensor4.getName() + " [0x" + sensor4.getId() + "]");
@@ -148,6 +167,9 @@ public class ChooseConfig extends AppCompatActivity {
             public void onClick(View button) {
                 EditText res1text = findViewById(R.id.resolutionInputText1);
                 String res1input = res1text.getText().toString();
+
+                Map<String, Object> sensorsConfigNestedMap = new HashMap<>();
+
                 if(!res1input.isEmpty())
                     sensor1.getConfig().setResolution(Double.parseDouble(res1input));
 
@@ -155,6 +177,8 @@ public class ChooseConfig extends AppCompatActivity {
                 String max1input = max1text.getText().toString();
                 if(!max1input.isEmpty())
                     sensor1.getConfig().setMaxY(Double.parseDouble(max1input));
+
+                sensorsConfigNestedMap.put(sensor1.getId(), sensor1.getConfig().sensorConfigMap());
 
                 if (numSelectedSensors>1){
                     Sensor sensor2 = AppState.getSensorFromId(AppState.selectedIds.get(1));
@@ -167,6 +191,9 @@ public class ChooseConfig extends AppCompatActivity {
                     String max2input = max2text.getText().toString();
                     if(!max2input.isEmpty())
                         sensor2.getConfig().setMaxY(Double.parseDouble(max2input));
+
+                    sensorsConfigNestedMap.put(sensor2.getId(), sensor2.getConfig().sensorConfigMap());
+
                 }
 
                 if (numSelectedSensors>2){
@@ -180,6 +207,9 @@ public class ChooseConfig extends AppCompatActivity {
                     String max3input = max3text.getText().toString();
                     if(!max3input.isEmpty())
                         sensor3.getConfig().setMaxY(Double.parseDouble(max3input));
+
+                    sensorsConfigNestedMap.put(sensor3.getId(), sensor3.getConfig().sensorConfigMap());
+
                 }
 
                 if (numSelectedSensors>3){
@@ -193,10 +223,32 @@ public class ChooseConfig extends AppCompatActivity {
                     String max4input = max4text.getText().toString();
                     if(!max4input.isEmpty())
                         sensor4.getConfig().setMaxY(Double.parseDouble(max4input));
+
+                    sensorsConfigNestedMap.put(sensor4.getId(), sensor4.getConfig().sensorConfigMap());
+
                 }
 
+                addConfigToFirebase(sensorsConfigNestedMap);
                 startActivity(new Intent(ChooseConfig.this, LiveConditions.class));
             }
         });
     }
+
+    private void addConfigToFirebase(Map<String, Object> sensorsConfigNestedMap) {
+
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+        FirebaseFirestore.getInstance()
+                .collection("Users")
+                .document(userId)
+                .collection("sensorsConfigs")
+                .add(sensorsConfigNestedMap)
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.d(TAG, "get failed with ", task.getException());
+                    }
+                });
+    }
+
+
 }
