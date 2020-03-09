@@ -29,6 +29,7 @@
         <activity android:name=".ChooseGrid" />
         <activity android:name=".ChooseConfig" />
         <activity android:name=".AboutHelp" />
+        <activity android:name=".PreviousConfigs" />
         <activity android:name=".Options" />
         <activity android:name=".LogStats"/>
         <activity

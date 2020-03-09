@@ -115,6 +115,15 @@ public class ChooseCond extends AppCompatActivity {
                 }
             }
         });
+
+        Button prevConfigs_button = (Button) findViewById(R.id.prevButton);
+
+        prevConfigs_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ChooseCond.this, PreviousConfigs.class));
+            }
+        });
     }
 
 }

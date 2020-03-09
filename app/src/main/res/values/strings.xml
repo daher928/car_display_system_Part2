@@ -24,6 +24,7 @@
     <string name="title_activity_realtime_updates">RealtimeUpdates</string>
     <string name="live_conditions">Live Conditions</string>
     <string name="receiving_n">RECEIVING!</string>
+    <string name="previous_configs">Previous Configs</string>
     <string name="about_text">In order to enhance and improve the driving experience in BMW cars in general (and BMW’s Autonomous cars in particular), drivers and car testers must understand and feel not only the condition of the environment and the traffic conditions, but also the condition of the road, e.g. fraction of the road, humidity, temperature and angle.
 \n\nOur system aims to receive the conditions of the road and data collected by the car’s sensors, and provide a comfortable and elegant Android application, to graphically display the Real-time data, collected by the sensors, on a screen display attached to the car’s dashboard.
 \n\nDeveloped by\n
@@ -33,6 +34,7 @@ Vivian Lawin    [vivlawin@campus.technion.ac.il]\n
 Boaz Mizrahi\n
 \nTechnion - Institute of Technology\n
 Department of Electrical Engineering | High Speed Digital Systems Lab (HSDSL)</string>
+
 
 
 </resources>
