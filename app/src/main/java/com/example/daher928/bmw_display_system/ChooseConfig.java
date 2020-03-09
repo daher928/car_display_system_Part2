@@ -179,7 +179,9 @@ public class ChooseConfig extends AppCompatActivity {
                 if(!max1input.isEmpty())
                     sensor1.getConfig().setMaxY(Double.parseDouble(max1input));
 
-                sensorsConfigNestedMap.put(sensor1.getId(), sensor1.getConfig().sensorConfigMap());
+                Map<String, Object> map1 = sensor1.getConfig().sensorConfigMap();
+                map1.put("order",1);
+                sensorsConfigNestedMap.put(sensor1.getId(), map1);
 
                 if (numSelectedSensors>1){
                     Sensor sensor2 = AppState.getSensorFromId(AppState.selectedIds.get(1));
@@ -193,7 +195,9 @@ public class ChooseConfig extends AppCompatActivity {
                     if(!max2input.isEmpty())
                         sensor2.getConfig().setMaxY(Double.parseDouble(max2input));
 
-                    sensorsConfigNestedMap.put(sensor2.getId(), sensor2.getConfig().sensorConfigMap());
+                    Map<String, Object> map2 = sensor2.getConfig().sensorConfigMap();
+                    map2.put("order",2);
+                    sensorsConfigNestedMap.put(sensor2.getId(), map2);
 
                 }
 
@@ -209,7 +213,9 @@ public class ChooseConfig extends AppCompatActivity {
                     if(!max3input.isEmpty())
                         sensor3.getConfig().setMaxY(Double.parseDouble(max3input));
 
-                    sensorsConfigNestedMap.put(sensor3.getId(), sensor3.getConfig().sensorConfigMap());
+                    Map<String, Object> map3 = sensor3.getConfig().sensorConfigMap();
+                    map3.put("order",3);
+                    sensorsConfigNestedMap.put(sensor3.getId(), map3);
 
                 }
 
@@ -225,7 +231,9 @@ public class ChooseConfig extends AppCompatActivity {
                     if(!max4input.isEmpty())
                         sensor4.getConfig().setMaxY(Double.parseDouble(max4input));
 
-                    sensorsConfigNestedMap.put(sensor4.getId(), sensor4.getConfig().sensorConfigMap());
+                    Map<String, Object> map4 = sensor4.getConfig().sensorConfigMap();
+                    map4.put("order",4);
+                    sensorsConfigNestedMap.put(sensor4.getId(), map4);
 
                 }
 

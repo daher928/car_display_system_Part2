@@ -1,7 +1,14 @@
 package com.example.daher928.bmw_display_system;
 
+import android.graphics.Color;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.content.ContentValues.TAG;
 
 public class SensorConfiguration {
 
@@ -39,6 +46,26 @@ public class SensorConfiguration {
         this.resolution = resolution;
     }
 
+    private String colorToString(int color){
+        String str = "";
+        Log.i(TAG, "color " + color);
+        switch (color){
+            case Color.BLUE:
+                str = "Blue";
+                break;
+            case Color.GREEN:
+                str = "Green";
+                break;
+            case Color.BLACK:
+                str = "Black";
+                break;
+            case Color.YELLOW:
+                str = "Yellow";
+                break;
+        }
+        return str;
+    }
+
     public Map<String, Object> sensorConfigMap(){
         Map<String, Object> map = new HashMap<>();
         map.put("maxY", maxY);
@@ -47,4 +74,9 @@ public class SensorConfiguration {
         return map;
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return "[" + colorToString(color) + " MaxY:" + maxY + " Res:" + resolution + "]";
+    }
 }

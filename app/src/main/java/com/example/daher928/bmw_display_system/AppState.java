@@ -3,8 +3,10 @@ package com.example.daher928.bmw_display_system;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.LinkedTransferQueue;
 import java.util.concurrent.SynchronousQueue;
@@ -25,6 +27,9 @@ public class AppState {
     static Queue<String> queue = new LinkedTransferQueue<>();
 
     static boolean isLogActive = false;
+
+    public static Map<String, Object> sensorsPreviousConfigNestedMap = new HashMap<>();
+
 
     public static String[] getSensorsDiNames() {   //diName = Name [Units] (ID=XXXX)
         Iterator<Sensor> iterator = AppState.sensors_list.iterator();

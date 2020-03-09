@@ -20,15 +20,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static android.content.ContentValues.TAG;
+import static com.example.daher928.bmw_display_system.AppState.sensorsPreviousConfigNestedMap;
 
 public class PreviousConfigs extends AppCompatActivity {
 
-    private static Map<String, Object> sensorsConfigNestedMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,50 +62,41 @@ public class PreviousConfigs extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView7);
         textView.setText("Previous Configurations of " + userEmail);
 
-        sensorsConfigNestedMap = new HashMap<>();
+//        sensorsConfigNestedMap = new HashMap<>();
+
+        Log.i(TAG, "config map in PreviousConfigs " + sensorsPreviousConfigNestedMap);
+
+        List<String> displaysList = new ArrayList<>();
+
+        for (String docId : sensorsPreviousConfigNestedMap.keySet()){
+            Map<String, Object> innerConfigMap = (Map<String, Object>) sensorsPreviousConfigNestedMap.get(docId);
+            String displayStr = "";
+            for (String sensor : innerConfigMap.keySet()){
+                Map<String, Object> sensorMap = (Map<String, Object>) innerConfigMap.get(sensor);
+                long color = (Long) sensorMap.get("color");
+                double maxY = (double) sensorMap.get("maxY");
+                double resolution = (double) sensorMap.get("resolution");
+                SensorConfiguration sensorConfiguration = new SensorConfiguration((int)color, maxY, resolution);
+                displayStr += ("ID:" + sensor + " " + sensorConfiguration.toString() + " ");
+            }
+
+            displaysList.add(displayStr);
+
+            Log.i(TAG, "displayStr " + displayStr);
+
+        }
+
 
         ListView listView = findViewById(R.id.companionsearch_listView1);
 
-        String[] list = AppState.getSensorsDiNames();
+        String[] list = displaysList.stream().toArray(String[]::new);
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(PreviousConfigs.this, android.R.layout.simple_list_item_multiple_choice, list);
-        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        ArrayAdapter adapter = new ArrayAdapter<String>(PreviousConfigs.this, android.R.layout.simple_list_item_single_choice, list);
+        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         listView.setAdapter(adapter);
 
-        updateConfigsFromFirebase();
 
 
-    }
 
-    private void updateConfigsFromFirebase() {
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        FirebaseFirestore.getInstance()
-                .collection("Users")
-                .document(userId)
-                .collection("sensorsConfigs")
-                .get()
-                .addOnCompleteListener(task1 -> {
-                            if (task1.isSuccessful()) {
-                                insetToConfigsmap(task1);
-                                Log.i(TAG, "config map " + sensorsConfigNestedMap);
-                            } else {
-                                Log.d("ERROR", "get failed with ", task1.getException());
-                            }
-                        }
-                );
-    }
-
-    private void insetToConfigsmap(Task<QuerySnapshot> task1) {
-        List<DocumentSnapshot> documents = task1.getResult().getDocuments();
-        for (DocumentSnapshot doc : documents){
-//            Log.i("doc", doc.getData().toString());
-            Map<String, Object> docData = doc.getData();
-            for (String sensorId : docData.keySet()){
-                Map<String, Object> configs = (Map<String, Object>) docData.get(sensorId);
-                configs.put("sensorId" , sensorId);
-                sensorsConfigNestedMap.put(doc.getId(), configs);
-                Log.i("doc", sensorsConfigNestedMap.toString());
-            }
-        }
     }
 }

@@ -13,8 +13,19 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import static android.content.ContentValues.TAG;
+import static com.example.daher928.bmw_display_system.AppState.sensorsPreviousConfigNestedMap;
 
 public class ChooseCond extends AppCompatActivity {
 
@@ -24,6 +35,7 @@ public class ChooseCond extends AppCompatActivity {
     private final static String PLEASE_SELECT_CONDITION_MESSAGE = "Please Select Conditions";
 
     static ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,9 +133,43 @@ public class ChooseCond extends AppCompatActivity {
         prevConfigs_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ChooseCond.this, PreviousConfigs.class));
+                updateConfigsFromFirebase();
             }
         });
+    }
+
+    private void updateConfigsFromFirebase() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        FirebaseFirestore.getInstance()
+                .collection("Users")
+                .document(userId)
+                .collection("sensorsConfigs")
+//                .orderBy("order", Query.Direction.ASCENDING)
+                .get()
+                .addOnCompleteListener(task1 -> {
+                            if (task1.isSuccessful()) {
+                                insertToConfigsmap(task1);
+                                Log.i(TAG, "config map in ChooseCond update " + sensorsPreviousConfigNestedMap);
+                                startActivity(new Intent(ChooseCond.this, PreviousConfigs.class));
+                            } else {
+                                Log.d("ERROR", "get failed with ", task1.getException());
+                            }
+                        }
+                );
+    }
+
+    private void insertToConfigsmap(Task<QuerySnapshot> task1) {
+        List<DocumentSnapshot> documents = task1.getResult().getDocuments();
+        for (DocumentSnapshot doc : documents){
+//            Log.i("doc", doc.getData().toString());
+            Map<String, Object> docData = doc.getData();
+            Log.i("docData", docData.toString());
+            List<Object> list = new ArrayList<>();
+            for (String sensorId : docData.keySet()){
+                sensorsPreviousConfigNestedMap.put(doc.getId(), docData);
+//                Log.i("doc", sensorsPreviousConfigNestedMap.toString());
+            }
+        }
     }
 
 }
