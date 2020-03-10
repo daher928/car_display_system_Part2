@@ -62,6 +62,9 @@ public class SensorConfiguration {
             case Color.YELLOW:
                 str = "Yellow";
                 break;
+            case Color.RED:
+                str = "Red";
+                break;
         }
         return str;
     }
