@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatCheckedTextView;
 
 import com.facebook.LoggingBehavior;
 import com.facebook.internal.Logger;
@@ -27,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import static android.content.ContentValues.TAG;
+import static com.example.daher928.bmw_display_system.AppState.getSensorFromId;
 import static com.example.daher928.bmw_display_system.AppState.sensorsPreviousConfigNestedMap;
 
 public class PreviousConfigs extends AppCompatActivity {
@@ -67,7 +70,7 @@ public class PreviousConfigs extends AppCompatActivity {
         Log.i(TAG, "config map in PreviousConfigs " + sensorsPreviousConfigNestedMap);
 
         List<String> displaysList = new ArrayList<>();
-
+        Map<String, Map<String, Object>> displayToInnerConfigMap = new HashMap<>();
         for (String docId : sensorsPreviousConfigNestedMap.keySet()){
             Map<String, Object> innerConfigMap = (Map<String, Object>) sensorsPreviousConfigNestedMap.get(docId);
             String displayStr = "";
@@ -81,11 +84,10 @@ public class PreviousConfigs extends AppCompatActivity {
             }
 
             displaysList.add(displayStr);
-
+            displayToInnerConfigMap.put(displayStr, innerConfigMap);
             Log.i(TAG, "displayStr " + displayStr);
 
         }
-
 
         ListView listView = findViewById(R.id.companionsearch_listView1);
 
@@ -95,8 +97,48 @@ public class PreviousConfigs extends AppCompatActivity {
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         listView.setAdapter(adapter);
 
+        AppState.selectedDiNamesList.clear();
+        AppState.selectedIds.clear();
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AppCompatCheckedTextView checkBox = (AppCompatCheckedTextView) view;
 
+                if (checkBox.isChecked() == true){
+                    String selectedTxt = checkBox.getText().toString();
+                    Log.i("PreviousConfig", "Selected= " + selectedTxt);
+                    Map<String, Object> innerMap = displayToInnerConfigMap.get(selectedTxt);
+                    Log.i("PreviousConfig", "innerConfigMap= " + innerMap);
 
+                    for (String sensor : innerMap.keySet()){
+                        Map<String, Object> sensorMap = (Map<String, Object>) innerMap.get(sensor);
+                        long color = (Long) sensorMap.get("color");
+                        double maxY = (double) sensorMap.get("maxY");
+                        double resolution = (double) sensorMap.get("resolution");
+                        Sensor sensorObj = createSensorWithConfig(sensor, color, maxY, resolution);
+                        AppState.selectedIds.add(sensor);
+                    }
+                }
+            }
+        });
+
+        next_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View button) {
+                Intent mIntent = new Intent(PreviousConfigs.this, LiveConditions.class);
+                mIntent.putExtra("FROM_ACTIVITY", "PreviousConfigs");
+                startActivity(mIntent);
+            }
+        });
+
+    }
+
+    private Sensor createSensorWithConfig(String sensorId, long color, double maxY, double resolution){
+        Sensor sensor = getSensorFromId(sensorId);
+        sensor.resetConfig();
+        sensor.getConfig().setColor((int)color);
+        sensor.getConfig().setMaxY(maxY);
+        sensor.getConfig().setResolution(resolution);
+        return sensor;
     }
 }

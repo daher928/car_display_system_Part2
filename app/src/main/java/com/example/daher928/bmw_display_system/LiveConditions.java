@@ -65,7 +65,14 @@ public class LiveConditions extends AppCompatActivity {
 
         back_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
-                startActivity(new Intent(LiveConditions.this, ChooseConfig.class));
+                Intent mIntent = getIntent();
+                String previousActivity= mIntent.getStringExtra("FROM_ACTIVITY");
+                if (previousActivity.equals("PreviousConfigs")) {
+                    startActivity(new Intent(LiveConditions.this, PreviousConfigs.class));
+                } else {
+                    startActivity(new Intent(LiveConditions.this, ChooseConfig.class));
+
+                }
                 last_point = 0;
                 running = false;
             }
@@ -195,7 +202,7 @@ public class LiveConditions extends AppCompatActivity {
                         }
                     });
                 }
-                Log.d(" *** StreamDisplayThread: ","RUNNING But nothing to poll!!" );
+//                Log.d(" *** StreamDisplayThread: ","RUNNING But nothing to poll!!" );
 
             }
         }

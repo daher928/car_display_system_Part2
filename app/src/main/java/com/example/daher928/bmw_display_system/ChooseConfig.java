@@ -238,7 +238,10 @@ public class ChooseConfig extends AppCompatActivity {
                 }
 
                 addConfigToFirebase(sensorsConfigNestedMap);
-                startActivity(new Intent(ChooseConfig.this, LiveConditions.class));
+
+                Intent mIntent = new Intent(ChooseConfig.this, LiveConditions.class);
+                mIntent.putExtra("FROM_ACTIVITY", "ChooseConfig");
+                startActivity(mIntent);
             }
         });
 
