@@ -4,16 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.daher928.bmw_display_system.AppTheme;
+import com.example.daher928.bmw_display_system.MainMenu;
 import com.example.daher928.bmw_display_system.R;
 import com.example.daher928.bmw_display_system.ThemeColor;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class AuthenticationUser extends AppCompatActivity {
     Button btnLogOut;
+    Button proceedBtn;
+    TextView text;
     FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
 
@@ -29,6 +33,9 @@ public class AuthenticationUser extends AppCompatActivity {
             v.setBackground(getResources().getDrawable(R.drawable.red_backround_image, null));
         }
 
+        text = findViewById(R.id.textUser);
+        text.setText("Logged in as " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
         btnLogOut = (Button) findViewById(R.id.btnLogOut);
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +43,17 @@ public class AuthenticationUser extends AppCompatActivity {
 
                 FirebaseAuth.getInstance().signOut();
                 Intent I = new Intent(AuthenticationUser.this, AuthenticationLogin.class);
+                startActivity(I);
+
+            }
+        });
+
+        proceedBtn = (Button) findViewById(R.id.proceedBtn);
+        proceedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent I = new Intent(AuthenticationUser.this, MainMenu.class);
                 startActivity(I);
 
             }

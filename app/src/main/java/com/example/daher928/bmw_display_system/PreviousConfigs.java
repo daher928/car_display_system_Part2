@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckedTextView;
@@ -30,6 +31,7 @@ import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 import static com.example.daher928.bmw_display_system.AppState.getSensorFromId;
+import static com.example.daher928.bmw_display_system.AppState.selectedIds;
 import static com.example.daher928.bmw_display_system.AppState.sensorsPreviousConfigNestedMap;
 
 public class PreviousConfigs extends AppCompatActivity {
@@ -100,6 +102,7 @@ public class PreviousConfigs extends AppCompatActivity {
         AppState.selectedDiNamesList.clear();
         AppState.selectedIds.clear();
 
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -127,7 +130,10 @@ public class PreviousConfigs extends AppCompatActivity {
             public void onClick(View button) {
                 Intent mIntent = new Intent(PreviousConfigs.this, LiveConditions.class);
                 mIntent.putExtra("FROM_ACTIVITY", "PreviousConfigs");
-                startActivity(mIntent);
+                if(selectedIds.size()>0)
+                    startActivity(mIntent);
+                else
+                    Toast.makeText(getApplicationContext(),"Please Select Configurations set", Toast.LENGTH_SHORT).show();
             }
         });
 

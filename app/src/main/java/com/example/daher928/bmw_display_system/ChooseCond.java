@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import static android.content.ContentValues.TAG;
+import static com.example.daher928.bmw_display_system.AppState.selectedIds;
 import static com.example.daher928.bmw_display_system.AppState.sensorsPreviousConfigNestedMap;
 
 public class ChooseCond extends AppCompatActivity {
@@ -70,7 +71,7 @@ public class ChooseCond extends AppCompatActivity {
         next_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View button) {
                 next_button.animate();
-                if(selectedPositionsList.size()>0)
+                if(selectedPositionsList.size()>0 && selectedIds.size()>0)
                     startActivity(new Intent(ChooseCond.this, ChooseConfig.class));
                 else
                     Toast.makeText(getApplicationContext(),PLEASE_SELECT_CONDITION_MESSAGE, Toast.LENGTH_SHORT).show();

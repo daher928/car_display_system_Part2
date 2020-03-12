@@ -47,7 +47,7 @@ public class SerialReceiverThread extends Thread implements Runnable {
     Context context;
     Handler h = new Handler();
 
-//    FileOutputStream fileOutputStream;
+    //    FileOutputStream fileOutputStream;
     private FirebaseFirestore firestore;
 
     String streamLine = "";
@@ -80,7 +80,7 @@ public class SerialReceiverThread extends Thread implements Runnable {
     }
 
     @Override
-    public void run(){
+    public void run() {
         //Receiver to detect any usb connected device
         IntentFilter filter = new IntentFilter();
         filter.addAction(ACTION_USB_PERMISSION);
@@ -117,13 +117,10 @@ public class SerialReceiverThread extends Thread implements Runnable {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(ACTION_USB_PERMISSION)) {
-
                 boolean granted = intent.getExtras().getBoolean(UsbManager.EXTRA_PERMISSION_GRANTED);
                 if (granted) {
                     connection = usbManager.openDevice(device);
-
                     serialPort = UsbSerialDevice.createUsbSerialDevice(device, connection);
-
                     if (serialPort != null) {
                         if (serialPort.open()) { //Set Serial Connection Parameters.
                             serialPort.setBaudRate(SERIAL_BAUD_RATE);
@@ -133,8 +130,7 @@ public class SerialReceiverThread extends Thread implements Runnable {
                             serialPort.setFlowControl(UsbSerialInterface.FLOW_CONTROL_OFF);
                             serialPort.read(mCallback);
 
-                            Toast.makeText(context,"Serial Connection Opened!", Toast.LENGTH_SHORT);
-
+                            Toast.makeText(context, "Serial Connection Opened!", Toast.LENGTH_SHORT);
                         } else {
                             Log.d("SERIAL", "PORT NOT OPEN");
                         }
@@ -158,33 +154,20 @@ public class SerialReceiverThread extends Thread implements Runnable {
     UsbSerialInterface.UsbReadCallback mCallback = new UsbSerialInterface.UsbReadCallback() { //Defining a Callback which triggers whenever data is read.
         @Override
         public void onReceivedData(byte[] arg0) {
-
             //Here we receive the data
             try {
                 String data = new String(arg0);
-
                 streamLine += data;
-
-                if (streamLine.contains(END_OF_LINE)){
+                if (streamLine.contains(END_OF_LINE)) {
                     String[] split = streamLine.split(END_OF_LINE);
                     final String singleStream = split[0];
-                    streamLine = split.length>0 ? split[1] : "";
-//                    Log.d("singleStream =", singleStream);
-
+                    streamLine = split.length > 0 ? split[1] : "";
                     StreamLine parsedStream = StreamUtil.parse(singleStream);
-                    // Pushing TS#SID#SVAL to queue
                     if (parsedStream != null) {
                         AppState.queue.add(parsedStream.toString());
                     }
-
                     h.post(() -> {
-//                        Timestamp ts = new Timestamp(System.currentTimeMillis());
-//                        Date d1 = new Date(ts.getTime());
-//                        String textToSave = d1 + " " + singleStream + "\n";
-//                            Toast.makeText(context, "singlestream: "+singleStream.toString(), Toast.LENGTH_SHORT).show();
-                        if (AppState.isLogActive){
-//                              fileOutputStream.write(textToSave.getBytes());
-                            // Log to firestore
+                        if (AppState.isLogActive && parsedStream != null) {
                             if (AppState.selectedIds.contains(parsedStream.getSensorId())) {
                                 Map<String, Object> new_data = new HashMap<>();
                                 String sensorId = parsedStream.getSensorId();
@@ -192,44 +175,22 @@ public class SerialReceiverThread extends Thread implements Runnable {
                                 long timestamp = parsedStream.getTimeStamp();
                                 String userId = FirebaseAuth.getInstance().getCurrentUser().getEmail();
                                 Date date = new Date(timestamp);
-//                            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-//                            String strDate = dateFormat.format(date);
 
                                 new_data.put(SENSOR_ID_DOCUMENT_PROPERTY, sensorId);
                                 new_data.put(SENSOR_DATA_DOCUMENT_PROPERTY, sensorData);
                                 new_data.put(DATE_DOCUMENT_PROPERTY, date);
                                 new_data.put(USER_EMAIL_PROPERTY, userId);
 
-                                firestore.collection("Users")
+                                FirebaseFirestore.getInstance().collection("Users")
                                         .document(userId)
                                         .collection("logs")
                                         .add(new_data)
                                         .addOnCompleteListener(task -> {
                                             if (!task.isSuccessful()) {
-                                                Log.d(TAG, "get failed with ", task.getException());
+                                                Log.d(TAG, "Get failed with ", task.getException());
                                             }
                                         });
                             }
-//                            Map<String, Object> sensor_info = new HashMap<>();
-//                            sensor_info.put(SENSOR_ID_DOCUMENT_PROPERTY, sensorId);
-
-//                            DocumentReference docRef = firestore
-//                                    .collection(ALL_SENSORS_COLLECTION_NAME)
-//                                    .document(sensorId);
-//                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                                    if (task.isSuccessful()) {
-//                                        DocumentSnapshot document = task.getResult();
-//                                        if (!document.exists()) {
-//                                            firestore.collection(ALL_SENSORS_COLLECTION_NAME).add(sensor_info);
-//                                            Log.d("New sensor", sensorId);
-//                                        }
-//                                    } else {
-//                                        Log.d(TAG, "get failed with ", task.getException());
-//                                    }
-//                                }
-//                            });
                         }
                     });
                 }

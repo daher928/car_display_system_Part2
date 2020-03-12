@@ -132,7 +132,7 @@ public class LiveConditions extends AppCompatActivity {
         graph.getGridLabelRenderer().setHumanRounding(true);
         graph.getGridLabelRenderer().setHighlightZeroLines(true);
         graph.getGridLabelRenderer().setLabelsSpace(-3);
-        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this, new SimpleDateFormat("mm:ss.SSS")));
+        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this, new SimpleDateFormat("HH:mm:ss:S")));
         graph.getGridLabelRenderer().setLabelVerticalWidth((int)getResources().getDimension(R.dimen.activity_vertical_margin));
         graph.getGridLabelRenderer().setLabelHorizontalHeight((int)getResources().getDimension(R.dimen.activity_horizontal_margin));
         graph.getGridLabelRenderer().setGridColor(Color.parseColor("#20000000"));
@@ -176,28 +176,33 @@ public class LiveConditions extends AppCompatActivity {
                             if (!AppState.selectedIds.contains(id)){
                                 return;
                             } else {
-                                final double double_val = Integer.valueOf(val, 16);
-//                                Log.d("New point will be displayed", s);
-                                int graph_idx = AppState.selectedIds.indexOf(id);
-                                // Calendar calendar = Calendar.getInstance();
-                                Sensor currSensor = AppState.getSensorFromId(AppState.selectedIds.get(graph_idx));
-                                double resolution = currSensor.getConfig().getResolution();
-                                double offset = currSensor.getOffset();
-                                double final_val = double_val * resolution + offset;
-                                last_point = final_val;
+                                Log.d("New point will be displayed", s);
+                                try {
+                                    final double double_val = Integer.valueOf(val, 16);
+                                    int graph_idx = AppState.selectedIds.indexOf(id);
+                                    // Calendar calendar = Calendar.getInstance();
+                                    Sensor currSensor = AppState.getSensorFromId(AppState.selectedIds.get(graph_idx));
+                                    double resolution = currSensor.getConfig().getResolution();
+                                    double offset = currSensor.getOffset();
+                                    double final_val = double_val * resolution + offset;
+                                    last_point = final_val;
 
-                                switch(graph_idx){
-                                    case 0:
-                                        series1.appendData(new DataPoint(d1, final_val), true, 10, false);
-                                        break;
-                                    case 1:
-                                        series2.appendData(new DataPoint(d1, final_val), true, 10, false);
-                                        break;
-                                    case 2:
-                                        series3.appendData(new DataPoint(d1, final_val), true, 10, false);
-                                        break;
+                                    switch(graph_idx){
+                                        case 0:
+                                            series1.appendData(new DataPoint(d1, final_val), true, 10, false);
+                                            break;
+                                        case 1:
+                                            series2.appendData(new DataPoint(d1, final_val), true, 10, false);
+                                            break;
+                                        case 2:
+                                            series3.appendData(new DataPoint(d1, final_val), true, 10, false);
+                                            break;
+                                    }
+                                    Log.d("New point will be displayed", String.valueOf(final_val));
+                                } catch (NumberFormatException e) {
+                                    Log.d("format", "Unable to format. " + e);
                                 }
-                                Log.d("New point will be displayed", String.valueOf(final_val));
+
                             }
                         }
                     });

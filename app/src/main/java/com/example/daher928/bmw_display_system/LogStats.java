@@ -98,28 +98,10 @@ public class LogStats extends AppCompatActivity {
 
     void readLog(boolean isFiltered){
         if (isFiltered && AppState.selectedIds.size()==0) {
+            completeLogView.setText("");
             return;
         }
-
         completeLogView.setText("");
-//            FileInputStream fileInputStream = openFileInput(LOG_FILE_NAME);
-//            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-
-//            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-//            StringBuffer stringBuffer = new StringBuffer();
-
-//            String lines;
-//            while ((lines = bufferedReader.readLine()) != null) {
-//                String[] tokens2 = lines.split(" ");
-//                String stream = tokens2[tokens2.length-1];
-//                StreamLine streamLine = StreamUtil.parse(stream);
-//                if (isFiltered){
-//                    if(AppState.selectedIds.contains(streamLine.sensorId))
-//                        completeLogView.append(lines + "\n");
-//                } else {
-//                    completeLogView.append(lines + "\n");
-//                }
-//            }
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String userId = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         String logCollectionId = "userLog/" + LOG_COLLECTION_NAME + "/" + userId;

@@ -66,33 +66,26 @@ public class AuthenticationLogin extends AppCompatActivity {
                 startActivity(I);
             }
         });
-        btnLogIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String userEmail = loginEmailId.getText().toString();
-                String userPaswd = logInpasswd.getText().toString();
-                if (userEmail.isEmpty()) {
-                    loginEmailId.setError("Provide your Email first!");
-                    loginEmailId.requestFocus();
-                } else if (userPaswd.isEmpty()) {
-                    logInpasswd.setError("Enter Password!");
-                    logInpasswd.requestFocus();
-                } else if (userEmail.isEmpty() && userPaswd.isEmpty()) {
-                    Toast.makeText(AuthenticationLogin.this, "Fields Empty!", Toast.LENGTH_SHORT).show();
-                } else if (!(userEmail.isEmpty() && userPaswd.isEmpty())) {
-                    firebaseAuth.signInWithEmailAndPassword(userEmail, userPaswd).addOnCompleteListener(AuthenticationLogin.this, new OnCompleteListener() {
-                        @Override
-                        public void onComplete(@NonNull Task task) {
+        btnLogIn.setOnClickListener(view -> {
+            String userEmail = loginEmailId.getText().toString();
+            String userPaswd = logInpasswd.getText().toString();
+            if (userEmail.isEmpty()) {
+                loginEmailId.setError("Provide your Email first!");
+                loginEmailId.requestFocus();
+            } else if (userPaswd.isEmpty()) {
+                logInpasswd.setError("Enter Password!");
+                logInpasswd.requestFocus();
+            } else if (!(userEmail.isEmpty() && userPaswd.isEmpty())) {
+                firebaseAuth.signInWithEmailAndPassword(userEmail, userPaswd)
+                        .addOnCompleteListener(AuthenticationLogin.this, (OnCompleteListener) task -> {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(AuthenticationLogin.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             } else {
                                 startActivity(new Intent(AuthenticationLogin.this, MainMenu.class));
                             }
-                        }
-                    });
-                } else {
-                    Toast.makeText(AuthenticationLogin.this, "Error", Toast.LENGTH_SHORT).show();
-                }
+                        });
+            } else {
+                Toast.makeText(AuthenticationLogin.this, "Error", Toast.LENGTH_SHORT).show();
             }
         });
 
