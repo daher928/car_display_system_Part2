@@ -6,8 +6,10 @@ To add in presentation & report:
       (*) Writing logs
       (*) Showing logs in App
       
-  - Deleting outdated logs (Firebase functions deployment)
-      (*) Node.js 8 + Javascript
-      (*) Functions development
-      (*) Functions deployment
+ - Authentication
+      (*) User space and logs
+      (*) Firebase authentication
+      
+  - Previous configurations feature
+      (*) Also with firestore database
 ______________________________________________________________
