@@ -158,8 +158,6 @@ public class LiveConditions extends AppCompatActivity {
             while (running) {
                 while (!AppState.queue.isEmpty() && running) {
                     final String s = AppState.queue.poll();
-//                    Log.d("*** Polled: ", s);
-
                     h.post(new Runnable() {
                         @Override
                         public void run() {
@@ -167,12 +165,8 @@ public class LiveConditions extends AppCompatActivity {
                             final long timestampLong = Long.parseLong(timestampStr);
                             Timestamp ts = new Timestamp(timestampLong);
                             Date d1 = new Date(ts.getTime());
-                            if (s == null) {
-                                return;
-                            }
                             final String id = s.split("#")[1];
                             final String val = s.split("#")[2];
-
                             if (!AppState.selectedIds.contains(id)){
                                 return;
                             } else {
@@ -180,7 +174,6 @@ public class LiveConditions extends AppCompatActivity {
                                 try {
                                     final double double_val = Integer.valueOf(val, 16);
                                     int graph_idx = AppState.selectedIds.indexOf(id);
-                                    // Calendar calendar = Calendar.getInstance();
                                     Sensor currSensor = AppState.getSensorFromId(AppState.selectedIds.get(graph_idx));
                                     double resolution = currSensor.getConfig().getResolution();
                                     double offset = currSensor.getOffset();
