@@ -22,7 +22,7 @@ Part 1 reference -> https://github.com/daher928/BMW_Display_System_Part1/
           
 * Cloud storage for test results and possible aggregations (Using Firebase Database and Functions)
 
-* Log-in and User registeration ability. (Using Firebase Authentication)
+* Log-in and User registration ability. (Using Firebase Authentication)
 
 * UI improvements
 
