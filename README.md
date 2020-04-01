@@ -5,9 +5,9 @@
 
 <h3>Supervisor: Boaz Mizrachi</h3>
 
-# display_system_Part2 [Submitted]
+# display_system_Part2 [Done]
 
-### Grade: [Not received yet]
+### Grade: [92/100]
 
 Part 1 reference -> https://github.com/daher928/BMW_Display_System_Part1/
 
